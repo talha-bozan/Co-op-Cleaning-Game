@@ -6,8 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/HostScene.unity
+    guid: f1bcbbcd8079f0d4484df2f16fe80f1f
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 6aa8b285d362a5142b925d0a031d5792
+  - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: 2126b1c208fb2d446a10dab4e9802d11
+  - enabled: 1
+    path: Assets/Scenes/deneme-talha.unity
+    guid: c54bdfa22c02f6140bb9e17302a0855b
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 69bec706427828b4d9a1cb2c8be44eab
