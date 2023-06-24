@@ -23,7 +23,7 @@ public class PlayerMovementController : NetworkBehaviour
     void Update()
     {
 
-        if (SceneManager.GetActiveScene().name == "deneme-talha")
+        if (SceneManager.GetActiveScene().name == "newgamescene")
         {
             if (PlayerModel.activeSelf == false)
             {
@@ -39,10 +39,17 @@ public class PlayerMovementController : NetworkBehaviour
     }
     public void Movement()
     {
-       //Character Control Script
 
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
+
+
+        Vector3 move = new Vector3(moveX * Speed * Time.deltaTime, 0, moveZ * Speed * Time.deltaTime);
+
+        transform.position += move;
     }
-        
+
+
 
     public void SetPosition()
     {

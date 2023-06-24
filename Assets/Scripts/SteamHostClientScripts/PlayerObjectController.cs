@@ -103,7 +103,7 @@ public class PlayerObjectController : NetworkBehaviour
 
     public void CanStartGame(string SceneName)
     {
-        if (hasAuthority)
+        if (isOwned)
         {
             CmdCanStartGame(SceneName);
         }
