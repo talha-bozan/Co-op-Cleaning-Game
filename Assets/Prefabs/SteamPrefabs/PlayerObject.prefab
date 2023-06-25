@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 6838899619598573449}
   - component: {fileID: 6982853654831950401}
   - component: {fileID: 2010133212982787084}
-  - component: {fileID: 7335916562114296744}
+  - component: {fileID: 8966889239371646195}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Untagged
@@ -207,7 +207,7 @@ MonoBehaviour:
   compressRotation: 0
   positionPrecision: 0.01
   scalePrecision: 0.01
---- !u!143 &7335916562114296744
+--- !u!143 &8966889239371646195
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
