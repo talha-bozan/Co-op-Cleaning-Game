@@ -9,6 +9,9 @@ public class PlayerMovementController : NetworkBehaviour
     private float Speed = 10.0f;
     public GameObject PlayerModel;
     private CharacterController characterController;
+    private float JumpHeight = 3.0f;
+    private float Gravity = -9.81f;
+    private Vector3 jumpVelocity;
 
     private void Start()
     {
@@ -34,21 +37,35 @@ public class PlayerMovementController : NetworkBehaviour
 
     public void Movement()
     {
+        if (characterController.isGrounded && jumpVelocity.y < 0f)
+        {
+            jumpVelocity.y = -2f;
+        }
+
+        if (Input.GetButtonDown("Jump") && characterController.isGrounded)
+        {
+            jumpVelocity.y = Mathf.Sqrt(-2 * JumpHeight * Gravity);
+        }
+
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
-        Vector3 move = new Vector3(moveX * Speed, 0, moveZ * Speed);
-       // move.Normalize();
+        Vector3 move = (transform.right * moveX) + (transform.forward * moveZ);
 
-
-        if (characterController != null)
+        // If the shift key is down, then dash
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            characterController.Move(move * Time.deltaTime);
+            characterController.Move(move * 2 * Speed * Time.deltaTime);
         }
         else
         {
-            Debug.LogWarning("Missing CharacterController!");
+            characterController.Move(move * Speed * Time.deltaTime);
         }
+
+        jumpVelocity.y += 2.3f * Gravity * Time.deltaTime;
+
+        characterController.Move(jumpVelocity * Time.deltaTime);
     }
+
 
     public void SetPosition()
     {
