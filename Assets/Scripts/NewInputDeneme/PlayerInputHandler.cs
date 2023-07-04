@@ -7,7 +7,7 @@ public class PlayerInputHandler : MonoBehaviour
     // Start is called before the first frame update
     public GameObject playerPrefab;
     MoveControl playerController;
-    Vector3 startPos = new Vector3(0, 0, 0);
+    Vector3 startPos = new Vector3(0, 5, 0);
 
     void Awake()
     {
