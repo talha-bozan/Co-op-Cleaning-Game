@@ -11,9 +11,11 @@ public class MoveControl : MonoBehaviour
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     [SerializeField] private float playerSpeed = 10.0f;
-    private float jumpHeight = 1.0f;
+    private float JumpHeight = 3.0f;
     private float gravityValue = -9.81f;
     private Vector3 move;
+    private Vector3 jumpVelocity;
+
 
     private void Awake()
     {
@@ -22,27 +24,41 @@ public class MoveControl : MonoBehaviour
 
     void Update()
     {
-        /* groundedPlayer = controller.isGrounded;
-         if (groundedPlayer && playerVelocity.y < 0)
-         {
-             playerVelocity.y = 0f;
-         }*/
+        Vector3 totalMovement = Vector3.zero;
 
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        if (controller.isGrounded)
+        {
+            if (jumpVelocity.y < 0f)
+            {
+                jumpVelocity.y = -2f;
+            }
 
+            if (Input.GetButtonDown("Jump"))
+            {
+                jumpVelocity.y = Mathf.Sqrt(-2 * JumpHeight * gravityValue);
+            }
+        }
+
+        if (!controller.isGrounded)
+        {
+            jumpVelocity.y += gravityValue * Time.deltaTime;
+        }
+
+        totalMovement += jumpVelocity * Time.deltaTime; 
+
+        // Move the character forward if there is input
         if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
-        }
-        /*                // Changes the height position of the player..
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
-        {                    playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
-         */
 
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+            
+            float speed = Input.GetKey(KeyCode.LeftShift) ? 2 * playerSpeed : playerSpeed;
+            totalMovement += move * speed * Time.deltaTime; 
+        }
+
+        controller.Move(totalMovement);
     }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 movement = context.ReadValue<Vector2>();
