@@ -12,6 +12,7 @@ public class MoveControl : MonoBehaviour
     private float gravityValue = -9.81f;
     private Vector3 move;
     private Vector3 jumpVelocity;
+    private bool jumped = false;
 
 
     private void Awake()
@@ -53,15 +54,16 @@ public class MoveControl : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        Debug.Log("context from move is " + context.ToString());
         Vector2 movement = context.ReadValue<Vector2>();
         move = new Vector3(movement.x, 0, movement.y);
     }
 
     public void OnJump(InputAction.CallbackContext context)
-    {   
+    {     
         float movement = context.ReadValue<float>();
 
-        Debug.Log("movementtt" + movement);
+        
 
         if (controller.isGrounded)
         {
