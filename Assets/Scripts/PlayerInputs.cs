@@ -10,8 +10,8 @@ public class PlayerInputs : MonoBehaviour
     [SerializeField] private GameObject player3;
     [SerializeField] private GameObject player4;
 
-    private bool _isCharacterActive = true;
-    private bool _canMove = true;
+   // private bool _isCharacterActive = true;
+    //private bool _canMove = true;
     private PlayerMovement player1Movement;
     private PlayerMovement player2Movement;
     private PlayerMovement player3Movement;

@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class MoveControl : MonoBehaviour
@@ -32,11 +29,6 @@ public class MoveControl : MonoBehaviour
             {
                 jumpVelocity.y = -2f;
             }
-
-            if (Input.GetButtonDown("Jump"))
-            {
-                jumpVelocity.y = Mathf.Sqrt(-2 * JumpHeight * gravityValue);
-            }
         }
 
         if (!controller.isGrounded)
@@ -44,16 +36,16 @@ public class MoveControl : MonoBehaviour
             jumpVelocity.y += gravityValue * Time.deltaTime;
         }
 
-        totalMovement += jumpVelocity * Time.deltaTime; 
+        totalMovement += jumpVelocity * Time.deltaTime;
 
         // Move the character forward if there is input
         if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
 
-            
+
             float speed = Input.GetKey(KeyCode.LeftShift) ? 2 * playerSpeed : playerSpeed;
-            totalMovement += move * speed * Time.deltaTime; 
+            totalMovement += move * speed * Time.deltaTime;
         }
 
         controller.Move(totalMovement);
@@ -63,7 +55,17 @@ public class MoveControl : MonoBehaviour
     {
         Vector2 movement = context.ReadValue<Vector2>();
         move = new Vector3(movement.x, 0, movement.y);
+    }
 
+    public void OnJump(InputAction.CallbackContext context)
+    {   
+        float movement = context.ReadValue<float>();
 
+        Debug.Log("movementtt" + movement);
+
+        if (controller.isGrounded)
+        {
+            jumpVelocity.y = Mathf.Sqrt(-2 * JumpHeight * gravityValue);
+        }
     }
 }

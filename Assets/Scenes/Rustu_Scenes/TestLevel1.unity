@@ -524,6 +524,50 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerInput
       objectReference: {fileID: 0}
+    - target: {fileID: 8235395403341104812, guid: 4c046d8f6cbf8564bbc7036ae7e96987, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235395403341104812, guid: 4c046d8f6cbf8564bbc7036ae7e96987, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235395403341104812, guid: 4c046d8f6cbf8564bbc7036ae7e96987, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_ActionId
+      value: 095c752b-741e-47a8-b06d-2cabf3c1ae8d
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235395403341104812, guid: 4c046d8f6cbf8564bbc7036ae7e96987, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_ActionName
+      value: Player/Jump[/Keyboard/space,/XInputControllerWindows/buttonNorth]
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235395403341104812, guid: 4c046d8f6cbf8564bbc7036ae7e96987, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235395403341104812, guid: 4c046d8f6cbf8564bbc7036ae7e96987, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235395403341104812, guid: 4c046d8f6cbf8564bbc7036ae7e96987, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1805590495}
+    - target: {fileID: 8235395403341104812, guid: 4c046d8f6cbf8564bbc7036ae7e96987, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235395403341104812, guid: 4c046d8f6cbf8564bbc7036ae7e96987, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235395403341104812, guid: 4c046d8f6cbf8564bbc7036ae7e96987, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerInputHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235395403341104812, guid: 4c046d8f6cbf8564bbc7036ae7e96987, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8235395403341104813, guid: 4c046d8f6cbf8564bbc7036ae7e96987, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -7069,6 +7113,17 @@ Transform:
   m_Father: {fileID: 1464904401}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1805590495 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8235395403341104815, guid: 4c046d8f6cbf8564bbc7036ae7e96987, type: 3}
+  m_PrefabInstance: {fileID: 79031938}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2699d56174005d4899f4498802e25c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1842466203
 GameObject:
   m_ObjectHideFlags: 0

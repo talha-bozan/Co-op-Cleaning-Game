@@ -22,7 +22,13 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-
+        
         playerController.OnMove(context);
+    }
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        
+
+        playerController.OnJump(context);
     }
 }
