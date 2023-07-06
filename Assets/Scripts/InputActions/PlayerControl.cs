@@ -24,7 +24,7 @@ public class PlayerControl : MonoBehaviour
 
     private Vector2 movementInput = Vector2.zero;
     private bool jumped = false;
-    private bool isCaught = false;
+    private bool isICaught = false;
 
     private void Start()
     {
@@ -57,12 +57,13 @@ public class PlayerControl : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         // release the player
-        isCaught = false;
+        caughtPlayer.GetComponent<PlayerControl>().isICaught = false;
         caughtPlayer = null;
     }
+
     private void Movement()
     {
-        if (isCaught)
+        if (isICaught)
             return; // Do not move if the player is caught
 
         Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
@@ -70,7 +71,7 @@ public class PlayerControl : MonoBehaviour
     }
     private void Jump()
     {
-        if (isCaught)
+        if (isICaught)
             return; // Do not jump if the player is caught
 
         if (groundedPlayer && playerVelocity.y < 0)
@@ -96,10 +97,13 @@ public class PlayerControl : MonoBehaviour
 
         foreach (Collider player in playersInRange)
         {
+            if (player.gameObject == this.gameObject) // Skip over the "owner" player
+                continue;
+
             Debug.Log("slmm");
             caughtPlayer = player.gameObject;
-            isCaught = true;
 
+            caughtPlayer.GetComponent<PlayerControl>().isICaught = true;
             // Now we've caught a player, stop checking the rest and start the release timer
             StartCoroutine(releasePlayerAfterDelay(5f));
             return;
