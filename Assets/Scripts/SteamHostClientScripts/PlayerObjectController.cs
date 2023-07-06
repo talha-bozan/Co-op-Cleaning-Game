@@ -54,7 +54,7 @@ public class PlayerObjectController : NetworkBehaviour
 
     public void ChangeReady()
     {
-        if (hasAuthority)
+        if (isOwned)
         {
             CMdSetPlayerReady();
         }

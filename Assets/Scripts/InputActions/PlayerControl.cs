@@ -28,17 +28,26 @@ public class PlayerControl : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context) { jumped = context.action.triggered; }
 
     void Update()
-    {
+    {   //somehow it should stay here dont change.
         groundedPlayer = controller.isGrounded;
+
+        Movement();
+        Jump();
+
+
+
+    }
+    private void Movement() {
+        Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
+        controller.Move(move * Time.deltaTime * playerSpeed);
+    }
+    private void Jump()
+    {
+
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
         }
-
-        Vector3 move = new Vector3(movementInput.x, 0, movementInput.y );
-        controller.Move(move * Time.deltaTime * playerSpeed);
-
-   
 
         // Changes the height position of the player..
         if (jumped && groundedPlayer)
@@ -48,5 +57,6 @@ public class PlayerControl : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+
     }
 }

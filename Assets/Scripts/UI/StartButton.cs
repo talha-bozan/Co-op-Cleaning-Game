@@ -9,7 +9,7 @@ namespace Utilities
     {
 	    private readonly Vector3 _scaleFactor = new Vector3(1.1f, 1.1f, 1.1f);
 	    private readonly Vector3 _defaultScale = new Vector3(1f, 1f, 1f);
-	    private bool _isGameStarted = false;
+	   // private bool _isGameStarted = false;
 
 		private LTDescr _scaleTween;
 		private void Start()
