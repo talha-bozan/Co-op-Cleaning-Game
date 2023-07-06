@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
-[RequireComponent(typeof(CharacterController))]  
+[RequireComponent(typeof(CharacterController))]
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField]
@@ -10,7 +11,12 @@ public class PlayerControl : MonoBehaviour
     private float jumpHeight = 1.0f;
     [SerializeField]
     private float gravityValue = -9.81f;
+    [SerializeField]
+    private float catchRadius = 2.5f;
+    [SerializeField]
+    private LayerMask playerMask;
 
+    private GameObject caughtPlayer;
 
     private CharacterController controller;
     private Vector3 playerVelocity;
@@ -18,6 +24,7 @@ public class PlayerControl : MonoBehaviour
 
     private Vector2 movementInput = Vector2.zero;
     private bool jumped = false;
+    private bool isCaught = false;
 
     private void Start()
     {
@@ -26,6 +33,13 @@ public class PlayerControl : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context) { movementInput = context.ReadValue<Vector2>(); }
     public void OnJump(InputAction.CallbackContext context) { jumped = context.action.triggered; }
+    public void OnCatch(InputAction.CallbackContext context)
+    {
+        if (context.action.triggered)
+        {
+            catchPlayer();
+        }
+    }
 
     void Update()
     {   //somehow it should stay here dont change.
@@ -36,13 +50,28 @@ public class PlayerControl : MonoBehaviour
 
 
 
+
     }
-    private void Movement() {
+    private IEnumerator releasePlayerAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // release the player
+        isCaught = false;
+        caughtPlayer = null;
+    }
+    private void Movement()
+    {
+        if (isCaught)
+            return; // Do not move if the player is caught
+
         Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
         controller.Move(move * Time.deltaTime * playerSpeed);
     }
     private void Jump()
     {
+        if (isCaught)
+            return; // Do not jump if the player is caught
 
         if (groundedPlayer && playerVelocity.y < 0)
         {
@@ -57,6 +86,23 @@ public class PlayerControl : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+    }
+    private void catchPlayer()
+    {
+        if (caughtPlayer != null)
+            return; // If we've already caught a player, don't catch another one
 
+        Collider[] playersInRange = Physics.OverlapSphere(transform.position, catchRadius, playerMask);
+
+        foreach (Collider player in playersInRange)
+        {
+            Debug.Log("slmm");
+            caughtPlayer = player.gameObject;
+            isCaught = true;
+
+            // Now we've caught a player, stop checking the rest and start the release timer
+            StartCoroutine(releasePlayerAfterDelay(5f));
+            return;
+        }
     }
 }

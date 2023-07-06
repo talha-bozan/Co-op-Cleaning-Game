@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6309939633762336340}
   - component: {fileID: 6309939633762336341}
   - component: {fileID: 6309939633762336351}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,6 +52,10 @@ MonoBehaviour:
   playerSpeed: 2
   jumpHeight: 1
   gravityValue: -9.81
+  catchRadius: 2
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &6309939633762336346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +113,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d6ccc568-458d-4917-b103-eb180a3fc154
     m_ActionName: Player/Jump[/Keyboard/space,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6309939633762336345}
+        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+        m_MethodName: OnCatch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d016d897-2df7-408a-8c24-ccb10f6d7a8c
+    m_ActionName: Player/CatchPlayer[/Keyboard/ctrl,/XInputControllerWindows/rightTrigger]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player
