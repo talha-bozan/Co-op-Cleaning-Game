@@ -35,6 +35,8 @@ public class PlayerControl : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context) { jumped = context.action.triggered; }
     public void OnCatch(InputAction.CallbackContext context)
     {
+        if (isICaught)
+            return; // Do not jump if the player is caught
         if (context.action.triggered)
         {
             catchPlayer();
@@ -47,8 +49,6 @@ public class PlayerControl : MonoBehaviour
 
         Movement();
         Jump();
-
-
 
 
     }
@@ -100,7 +100,6 @@ public class PlayerControl : MonoBehaviour
             if (player.gameObject == this.gameObject) // Skip over the "owner" player
                 continue;
 
-            Debug.Log("slmm");
             caughtPlayer = player.gameObject;
 
             caughtPlayer.GetComponent<PlayerControl>().isICaught = true;
