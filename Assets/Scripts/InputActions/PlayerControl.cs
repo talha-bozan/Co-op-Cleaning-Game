@@ -15,6 +15,10 @@ public class PlayerControl : MonoBehaviour
     private float catchRadius = 2.5f;
     [SerializeField]
     private LayerMask playerMask;
+    [SerializeField]
+    private float turnSpeed = 5f; // Adjust this value to your liking. Higher values mean faster rotation.
+    [SerializeField]
+    private float runMultiplier = 1.5f;
 
     private GameObject caughtPlayer;
 
@@ -76,7 +80,20 @@ public class PlayerControl : MonoBehaviour
             return; // Do not move if the player is caught
 
         Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
-        controller.Move(move * Time.deltaTime * playerSpeed);
+
+        float speed = playerSpeed;
+        if (isRunning)
+        {
+            speed *= runMultiplier;
+        }
+
+        controller.Move(move * Time.deltaTime * speed);
+
+        if (move != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(move);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+        }
     }
     private void Jump()
     {
