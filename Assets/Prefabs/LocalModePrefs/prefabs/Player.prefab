@@ -54,6 +54,8 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 8
+  turnSpeed: 5
+  runMultiplier: 1.5
 --- !u!114 &6309939633762336346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,13 +177,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2.03
+  m_Height: 1.65
   m_Radius: 0.51
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
-  m_Center: {x: -0.14, y: 0.7, z: 0}
+  m_Center: {x: 0.02, y: 0.8, z: 0.12}
 --- !u!1001 &6577632804071801165
 PrefabInstance:
   m_ObjectHideFlags: 0

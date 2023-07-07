@@ -31,6 +31,7 @@ public class PlayerControl : MonoBehaviour
     private bool isICaught = false;
     private bool isRunning = false;
     private bool isPunching = false;
+    private bool isStunned = false;
 
     private void Start()
     {
@@ -40,9 +41,10 @@ public class PlayerControl : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context) { movementInput = context.ReadValue<Vector2>(); }
     public void OnJump(InputAction.CallbackContext context) { jumped = context.action.triggered; }
     public void OnCatch(InputAction.CallbackContext context)
-    {
+    {   
         if (isICaught)
             return; // Do not jump if the player is caught
+        isPunching = context.action.triggered;
         if (context.action.triggered)
         {
             catchPlayer();
@@ -51,10 +53,6 @@ public class PlayerControl : MonoBehaviour
     public void OnRun(InputAction.CallbackContext context)
     {
         isRunning = context.action.triggered;
-    }
-    public void OnPunch(InputAction.CallbackContext context)
-    {
-        isPunching = context.action.triggered;
     }
     void Update()
     {   //somehow it should stay here dont change.
@@ -67,11 +65,15 @@ public class PlayerControl : MonoBehaviour
     }
     private IEnumerator releasePlayerAfterDelay(float delay)
     {
+        caughtPlayer.GetComponent<PlayerControl>().isStunned = true;
         yield return new WaitForSeconds(delay);
-
+        
         // release the player
         caughtPlayer.GetComponent<PlayerControl>().isICaught = false;
+        caughtPlayer.GetComponent<PlayerControl>().isStunned = false;
         caughtPlayer = null;
+
+        
     }
 
     private void Movement()
@@ -149,5 +151,9 @@ public class PlayerControl : MonoBehaviour
     public bool IsPlayerPunching()
     {
         return isPunching;
+    }
+    public bool IsPlayerStunned()
+    {
+        return isStunned;
     }
 }

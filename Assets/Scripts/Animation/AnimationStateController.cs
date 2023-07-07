@@ -10,6 +10,7 @@ public class AnimationStateController : MonoBehaviour
     private static readonly int isRunningAnimation = Animator.StringToHash("isRunning");
     private static readonly int isJumpingAnimation = Animator.StringToHash("isJumping");
     private static readonly int isPunchingAnimation = Animator.StringToHash("isPunching");
+    private static readonly int isStunningAnimation = Animator.StringToHash("isStunned");
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class AnimationStateController : MonoBehaviour
         Running();
         Jumping();
         Punching();
+        Stunning();
     }
 
     private void Movement() {
@@ -39,5 +41,10 @@ public class AnimationStateController : MonoBehaviour
     {
         bool isPunching = playerMovement.IsPlayerPunching();
         animator.SetBool(isPunchingAnimation, isPunching);
+    }
+    private void Stunning()
+    {
+        bool isStunning = playerMovement.IsPlayerStunned();
+        animator.SetBool(isStunningAnimation, isStunning);
     }
 }
