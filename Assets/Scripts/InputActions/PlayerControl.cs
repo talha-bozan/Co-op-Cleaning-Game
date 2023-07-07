@@ -25,6 +25,8 @@ public class PlayerControl : MonoBehaviour
     private Vector2 movementInput = Vector2.zero;
     private bool jumped = false;
     private bool isICaught = false;
+    private bool isRunning = false;
+    private bool isPunching = false;
 
     private void Start()
     {
@@ -42,14 +44,21 @@ public class PlayerControl : MonoBehaviour
             catchPlayer();
         }
     }
-
+    public void OnRun(InputAction.CallbackContext context)
+    {
+        isRunning = context.action.triggered;
+    }
+    public void OnPunch(InputAction.CallbackContext context)
+    {
+        isPunching = context.action.triggered;
+    }
     void Update()
     {   //somehow it should stay here dont change.
         groundedPlayer = controller.isGrounded;
 
         Movement();
         Jump();
-
+        //TO DO: RUN AND PUNCH NEED TO BE ADDED
 
     }
     private IEnumerator releasePlayerAfterDelay(float delay)
@@ -107,5 +116,21 @@ public class PlayerControl : MonoBehaviour
             StartCoroutine(releasePlayerAfterDelay(5f));
             return;
         }
+    }
+    public bool IsPlayerMoving()
+    {
+        return movementInput != Vector2.zero;
+    }
+    public bool IsPlayerRunning()
+    {
+        return isRunning;
+    }
+    public bool IsPlayerJumping()
+    {
+        return jumped;
+    }
+    public bool IsPlayerPunching()
+    {
+        return isPunching;
     }
 }
