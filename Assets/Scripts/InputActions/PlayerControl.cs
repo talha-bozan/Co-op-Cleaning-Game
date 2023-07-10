@@ -5,6 +5,8 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerControl : MonoBehaviour
 {
+    private bool jumpTriggered = false;
+
     [SerializeField]
     private float playerSpeed = 2.0f;
     [SerializeField]
@@ -39,7 +41,14 @@ public class PlayerControl : MonoBehaviour
     }
 
     public void OnMove(InputAction.CallbackContext context) { movementInput = context.ReadValue<Vector2>(); }
-    public void OnJump(InputAction.CallbackContext context) { jumped = context.action.triggered; }
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.action.triggered && !jumpTriggered)
+        {
+            jumped = true;
+            jumpTriggered = true;
+        }
+    }
     public void OnCatch(InputAction.CallbackContext context)
     {   
         if (isICaught)
@@ -111,6 +120,7 @@ public class PlayerControl : MonoBehaviour
         if (jumped && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            jumped = false; // reset jumped after jump execution
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
@@ -146,7 +156,9 @@ public class PlayerControl : MonoBehaviour
     }
     public bool IsPlayerJumping()
     {
-        return jumped;
+        bool wasJumpTriggered = jumpTriggered;
+        jumpTriggered = false; // reset the trigger
+        return wasJumpTriggered;
     }
     public bool IsPlayerPunching()
     {
