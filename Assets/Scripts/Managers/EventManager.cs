@@ -33,21 +33,38 @@ namespace Managers
         {
             ONPlayParticleHere?.Invoke(position);
         }
-        
+
 
 
 
         #endregion
 
 
+        #region Trash Collection
+        public event System.Action ONTrashCollected;
+        public void OnONTrashCollected()
+        {
+            ONTrashCollected?.Invoke();
+                
+        }
 
-#region Gameplay
+        public event System.Action<Vector3,Quaternion> ONTrashDropped;
+        public void OnONTrashDropped(Vector3 position, Quaternion rotation)
+        {
+            ONTrashDropped?.Invoke(position,rotation);
 
-    
+        }
+        #endregion
 
-//Events related to gameplay
 
-#endregion
+
+        #region Gameplay
+
+
+
+        //Events related to gameplay
+
+        #endregion
 
 
 
@@ -60,6 +77,10 @@ namespace Managers
             
             //VFX
             ONPlayParticleHere = null;
+
+            //Trash Movement
+            ONTrashDropped = null;
+            ONTrashCollected = null;
         }
 
 

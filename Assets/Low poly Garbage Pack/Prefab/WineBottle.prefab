@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7541630260565474855}
   - component: {fileID: 8653806808792077016}
   - component: {fileID: 6118741375627731271}
+  - component: {fileID: -2840716751216705762}
   m_Layer: 0
   m_Name: WineBottle
   m_TagString: Untagged
@@ -115,3 +116,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-2840716751216705762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8653806808792077019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8b5d79b9101484caea09376a4af4b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
