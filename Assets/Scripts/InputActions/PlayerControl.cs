@@ -6,6 +6,7 @@ public class PlayerControl : MonoBehaviour
 {
     public bool jumpTriggered = false;
 
+    [SerializeField] private Transform leftHand;
     [SerializeField]
     private float playerSpeed = 2.0f;
     [SerializeField]
@@ -13,7 +14,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private float gravityValue = -9.81f;
     [SerializeField]
-    private float catchRadius = 2.5f;
+    private float catchRadius = 0.000005f;
     [SerializeField]
     private LayerMask playerMask;
     [SerializeField]
@@ -108,7 +109,7 @@ public class PlayerControl : MonoBehaviour
         if (caughtPlayer != null)
             return; // If we've already caught a player, don't catch another one
 
-        Collider[] playersInRange = Physics.OverlapSphere(transform.position, catchRadius, playerMask);
+        Collider[] playersInRange = Physics.OverlapSphere(leftHand.position, catchRadius, playerMask);
 
         foreach (Collider player in playersInRange)
         {

@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpTriggered: 0
+  leftHand: {fileID: 104733949125366926}
   playerSpeed: 2
   jumpHeight: 1
   gravityValue: -9.81
@@ -246,6 +247,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6d0dbfbfe3bdc94a81472ffdd974e16, type: 3}
+--- !u!4 &104733949125366926 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6502182839619065283, guid: f6d0dbfbfe3bdc94a81472ffdd974e16, type: 3}
+  m_PrefabInstance: {fileID: 6577632804071801165}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6307603533422476316 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f6d0dbfbfe3bdc94a81472ffdd974e16, type: 3}
