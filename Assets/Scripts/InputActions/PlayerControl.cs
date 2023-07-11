@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerControl : MonoBehaviour
 {
-    private bool jumpTriggered = false;
+    public bool jumpTriggered = false;
 
     [SerializeField]
     private float playerSpeed = 2.0f;
@@ -28,41 +27,19 @@ public class PlayerControl : MonoBehaviour
     private Vector3 playerVelocity;
     private bool groundedPlayer;
 
-    private Vector2 movementInput = Vector2.zero;
-    private bool jumped = false;
-    private bool isICaught = false;
-    private bool isRunning = false;
-    private bool isPunching = false;
-    private bool isStunned = false;
+    public Vector2 movementInput = Vector2.zero;
+    public bool jumped = false;
+    public bool isICaught = false;
+    public bool isRunning = false;
+    public bool isPunching = false;
+    public bool isStunned = false;
 
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
     }
 
-    public void OnMove(InputAction.CallbackContext context) { movementInput = context.ReadValue<Vector2>(); }
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        if (context.action.triggered && !jumpTriggered)
-        {
-            jumped = true;
-            jumpTriggered = true;
-        }
-    }
-    public void OnCatch(InputAction.CallbackContext context)
-    {   
-        if (isICaught)
-            return; // Do not jump if the player is caught
-        isPunching = context.action.triggered;
-        if (context.action.triggered)
-        {
-            catchPlayer();
-        }
-    }
-    public void OnRun(InputAction.CallbackContext context)
-    {
-        isRunning = context.action.triggered;
-    }
+ 
     void Update()
     {   //somehow it should stay here dont change.
         groundedPlayer = controller.isGrounded;
@@ -126,7 +103,7 @@ public class PlayerControl : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
-    private void catchPlayer()
+    public void catchPlayer()
     {
         if (caughtPlayer != null)
             return; // If we've already caught a player, don't catch another one

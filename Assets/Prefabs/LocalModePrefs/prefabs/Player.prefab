@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6309939633762336344}
   - component: {fileID: 6309939633762336345}
+  - component: {fileID: 8097180169384295460}
   - component: {fileID: 6309939633762336346}
   - component: {fileID: 6309939633762336351}
   m_Layer: 3
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c79e8845245434fabd81eaa187fb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpTriggered: 0
   playerSpeed: 2
   jumpHeight: 1
   gravityValue: -9.81
@@ -56,6 +58,25 @@ MonoBehaviour:
     m_Bits: 8
   turnSpeed: 5
   runMultiplier: 1.5
+  movementInput: {x: 0, y: 0}
+  jumped: 0
+  isICaught: 0
+  isRunning: 0
+  isPunching: 0
+  isStunned: 0
+--- !u!114 &8097180169384295460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6309939633762336342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f623cc44dcb8ac45a801438efe5e843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerControl: {fileID: 6309939633762336345}
 --- !u!114 &6309939633762336346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,8 +104,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6309939633762336345}
-        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+      - m_Target: {fileID: 8097180169384295460}
+        m_TargetAssemblyTypeName: NewInputHandler, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -99,8 +120,8 @@ MonoBehaviour:
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6309939633762336345}
-        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+      - m_Target: {fileID: 8097180169384295460}
+        m_TargetAssemblyTypeName: NewInputHandler, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
@@ -115,8 +136,8 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space,/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6309939633762336345}
-        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+      - m_Target: {fileID: 8097180169384295460}
+        m_TargetAssemblyTypeName: NewInputHandler, Assembly-CSharp
         m_MethodName: OnCatch
         m_Mode: 0
         m_Arguments:
@@ -131,8 +152,8 @@ MonoBehaviour:
     m_ActionName: Player/CatchPlayer[/Keyboard/ctrl,/XInputControllerWindows/rightTrigger]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6309939633762336345}
-        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+      - m_Target: {fileID: 8097180169384295460}
+        m_TargetAssemblyTypeName: NewInputHandler, Assembly-CSharp
         m_MethodName: OnRun
         m_Mode: 0
         m_Arguments:
@@ -145,22 +166,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c5fd532a-61e5-4a67-916a-fea65f5ccc46
     m_ActionName: Player/Run[/Keyboard/shift,/XInputControllerWindows/leftShoulder]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6309939633762336345}
-        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
-        m_MethodName: OnPunch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3858fb8a-8ef3-4b5d-91b9-13fab85054c5
-    m_ActionName: Player/Punch[/Keyboard/p,/XInputControllerWindows/buttonWest]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player
