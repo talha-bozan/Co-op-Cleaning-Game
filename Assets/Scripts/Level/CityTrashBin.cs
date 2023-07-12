@@ -15,7 +15,7 @@ public class CityTrashBin : MonoBehaviour
     private int _positionIndex;
     private Vector3[] _movementArray;
     private Vector3[] _samplePositions;
-
+    
     private Transform _positionParent;
     
     void Start()
@@ -50,7 +50,7 @@ public class CityTrashBin : MonoBehaviour
         _positionParent = transform.GetChild(0);
         _samplePositions = new Vector3[10];
         _stackPositions = new Vector3[50];
-        int stackIndex;
+        //int stackIndex;
         for (int i = 2; i < 12; i++)
         {
             _samplePositions[i - 2] = _positionParent.GetChild(i).position;
@@ -76,6 +76,7 @@ public class CityTrashBin : MonoBehaviour
 
     public void SendTrashToTheBin(Vector3 position)
     {
+        
         var lp = _positionParent.InverseTransformPoint(position);
         _movementArray[0] = position;
         _movementArray[3] = _stackPositions[_positionIndex];
@@ -87,7 +88,21 @@ public class CityTrashBin : MonoBehaviour
         LeanTween.move(_trashPoolArray[_positionIndex], _movementArray, .5f).setEase(LeanTweenType.easeOutQuad);
         LeanTween.rotateLocal(_trashPoolArray[_positionIndex], rndRotation, .5f);
         _positionIndex += 1;
+        if (_positionIndex >= 20)
+        {
+            
+            for(int  i = 0; i < _trashPoolArray.Length; i++)
+            {
+                _trashPoolArray[i].SetActive(false);
+            }
+            _positionIndex = 0;
+            OpenLid();
+            GenerateTrashPool();
+            GeneratePositions();
+        }
+
+        Debug.Log(_positionIndex);
     }
 
-    
+
 }
