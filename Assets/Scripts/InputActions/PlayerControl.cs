@@ -14,7 +14,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private float gravityValue = -9.81f;
     [SerializeField]
-    private float catchRadius = 0.000005f;
+    private float catchRadius;
     [SerializeField]
     private LayerMask playerMask;
     [SerializeField]
@@ -48,6 +48,7 @@ public class PlayerControl : MonoBehaviour
         Movement();
         Jump();
         //TO DO: RUN AND PUNCH NEED TO BE ADDED
+        Debug.Log(caughtPlayer);
 
     }
     private IEnumerator releasePlayerAfterDelay(float delay)

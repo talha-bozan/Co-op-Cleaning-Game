@@ -53,7 +53,7 @@ MonoBehaviour:
   playerSpeed: 2
   jumpHeight: 1
   gravityValue: -9.81
-  catchRadius: 2
+  catchRadius: 0.5
   playerMask:
     serializedVersion: 2
     m_Bits: 8
