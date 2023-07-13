@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CityTrashBin : MonoBehaviour
 {
     private GameObject _trashBinlid;
@@ -17,6 +18,8 @@ public class CityTrashBin : MonoBehaviour
     private Vector3[] _samplePositions;
     
     private Transform _positionParent;
+    [SerializeField] GameObject truckObject;
+    private bool isTruckArrived = false;
     
     void Start()
     {
@@ -30,6 +33,12 @@ public class CityTrashBin : MonoBehaviour
     {
         _trashBinlid = transform.GetChild(1).gameObject;
         LeanTween.rotateAroundLocal(_trashBinlid, Vector3.right, 75f, 2f).setEase(LeanTweenType.easeOutQuad);
+    }
+    private void CloseLid()
+    {
+        _trashBinlid = transform.GetChild(1).gameObject;
+        LeanTween.rotateAroundLocal(_trashBinlid, Vector3.right, -75f, 2f).setEase(LeanTweenType.easeOutQuad);
+
     }
 
     private void GenerateTrashPool()
@@ -72,6 +81,14 @@ public class CityTrashBin : MonoBehaviour
         _movementArray[2] = _positionParent.GetChild(0).position;
     }
 
+    private void sendTruckToTheBin() {
+        LeanTween.move(truckObject, new Vector3(0.05f, 0.15f, -4.07f),2f);    
+    }
+    private void sendTruckToTheBegginning()
+    {
+        LeanTween.move(truckObject, new Vector3(-14.74f, 0.15f, -4.07f), 2f);
+    }
+
 
 
     public void SendTrashToTheBin(Vector3 position)
@@ -88,10 +105,22 @@ public class CityTrashBin : MonoBehaviour
         LeanTween.move(_trashPoolArray[_positionIndex], _movementArray, .5f).setEase(LeanTweenType.easeOutQuad);
         LeanTween.rotateLocal(_trashPoolArray[_positionIndex], rndRotation, .5f);
         _positionIndex += 1;
+
         if (_positionIndex >= 20)
         {
             
-            for(int  i = 0; i < _trashPoolArray.Length; i++)
+            StartCoroutine(WaitToFill());
+            
+        }
+
+        Debug.Log(_positionIndex);
+    }
+    public void ReFill()
+    {
+        if (isTruckArrived)
+        {
+
+            for (int i = 0; i < _trashPoolArray.Length; i++)
             {
                 _trashPoolArray[i].SetActive(false);
             }
@@ -99,10 +128,22 @@ public class CityTrashBin : MonoBehaviour
             OpenLid();
             GenerateTrashPool();
             GeneratePositions();
+            isTruckArrived = false;
         }
-
-        Debug.Log(_positionIndex);
+    }
+    IEnumerator WaitToFill()
+    {
+        sendTruckToTheBin();
+        yield return new WaitForSeconds(3f);
+        CloseLid();
+        yield return new WaitForSeconds(2f);
+        isTruckArrived = true;
+        ReFill();
+        sendTruckToTheBegginning();
+        yield return new WaitForSeconds(3f);
+        truckObject.transform.position = new Vector3(8.15f, 0.15f, -4.07f);
     }
 
 
-}
+
+    }
