@@ -24,7 +24,7 @@ public class CityTrashBin : MonoBehaviour
     
     void Start()
     {   _slider.minValue = 0; 
-        _slider.maxValue = _trashPoolCount - 1;
+        _slider.maxValue = _trashPoolCount - 2;
         OpenLid();
         GenerateTrashPool();
         GeneratePositions();
@@ -135,6 +135,7 @@ public class CityTrashBin : MonoBehaviour
             GeneratePositions();
             isTruckArrived = false;
             stopSending = false;
+            _slider.value = 0;
         }
     }
     IEnumerator WaitToFill()
