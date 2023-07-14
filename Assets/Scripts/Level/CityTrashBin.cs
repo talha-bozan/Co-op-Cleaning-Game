@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class CityTrashBin : MonoBehaviour
 {
     private GameObject _trashBinlid;
-
+    [SerializeField] private Slider _slider;
     [SerializeField] private GameObject trashBagPrefab;
     private GameObject[] _trashPoolArray;
     private int _trashPoolCount = 50;
@@ -20,9 +20,11 @@ public class CityTrashBin : MonoBehaviour
     private Transform _positionParent;
     [SerializeField] GameObject truckObject;
     private bool isTruckArrived = false;
+    public bool stopSending = false;
     
     void Start()
-    {
+    {   _slider.minValue = 0; 
+        _slider.maxValue = _trashPoolCount - 1;
         OpenLid();
         GenerateTrashPool();
         GeneratePositions();
@@ -92,7 +94,9 @@ public class CityTrashBin : MonoBehaviour
 
 
     public void SendTrashToTheBin(Vector3 position)
-    {
+    {   if (stopSending)
+            return;
+        _slider.value = _positionIndex;
         
         var lp = _positionParent.InverseTransformPoint(position);
         _movementArray[0] = position;
@@ -106,9 +110,11 @@ public class CityTrashBin : MonoBehaviour
         LeanTween.rotateLocal(_trashPoolArray[_positionIndex], rndRotation, .5f);
         _positionIndex += 1;
 
-        if (_positionIndex >= 20)
+        if (_positionIndex >= _trashPoolCount - 1)
         {
-            
+            stopSending = true;
+            _positionIndex = 0;
+
             StartCoroutine(WaitToFill());
             
         }
@@ -124,11 +130,11 @@ public class CityTrashBin : MonoBehaviour
             {
                 _trashPoolArray[i].SetActive(false);
             }
-            _positionIndex = 0;
             OpenLid();
             GenerateTrashPool();
             GeneratePositions();
             isTruckArrived = false;
+            stopSending = false;
         }
     }
     IEnumerator WaitToFill()
@@ -142,6 +148,7 @@ public class CityTrashBin : MonoBehaviour
         sendTruckToTheBegginning();
         yield return new WaitForSeconds(3f);
         truckObject.transform.position = new Vector3(8.15f, 0.15f, -4.07f);
+        
     }
 
 

@@ -14,6 +14,7 @@ public class CharacterCollection : MonoBehaviour
     private VacuumCleaner _vacuumCleaner;
     private bool _canThrow;
     private bool _allTrashThrown;
+    [SerializeField] private CityTrashBin _trashBin;
 
     public bool AllTrashThrown { get => _allTrashThrown; set => _allTrashThrown = value; }
 
@@ -34,7 +35,8 @@ public class CharacterCollection : MonoBehaviour
     }
 
     private void OnTriggerStay(Collider other)
-    {
+    {   if (_trashBin.stopSending)
+            return;
         
         if(other.TryGetComponent<CityTrashBin>(out _cityTrashBin))
         {
