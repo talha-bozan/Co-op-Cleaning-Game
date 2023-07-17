@@ -27,33 +27,51 @@ public class ScoreManager : MonoBehaviour
     {
         SaveScore();
     }
+    public int GetScore(string playerName)
+    {
+        // Find the score with the player's name
+        Score playerScore = sd.scores.Find(score => score.name == playerName);
+
+        if (playerScore != null)
+        {
+            return playerScore.score;
+        }
+        else
+        {
+            // Player score not found
+            return 0; 
+        }
+    }
+
+    public void UpdateScore(string playerName, int scoreValue)
+    {
+        // Find the score with the player's name
+        Score playerScore = sd.scores.Find(score => score.name == playerName);
+
+        if (playerScore != null)
+        {
+            // Update the existing score
+            playerScore.score = scoreValue;
+        }
+        else
+        {
+            // Create a new score for the player
+            Score newScore = new Score(playerName, scoreValue);
+            sd.scores.Add(newScore);
+        }
+
+        // Save the updated scores
+        SaveScore();
+    }
+
 
     public void SaveScore()
     {
         var json = JsonUtility.ToJson(sd);
-        Debug.Log(json);
         PlayerPrefs.SetString("scores", json);
     }
 
-    public void ChangeScore(string playerName, int newScore)
-    {
-        // Find the score entry for the specified player
-        Score playerScore = sd.scores.FirstOrDefault(x => x.name == playerName);
-
-        // If the player's score exists, update it
-        if (playerScore != null)
-        {
-            playerScore.score = newScore;
-        }
-        // If the player's score doesn't exist, add a new entry
-        else
-        {
-            Score newPlayerScore = new Score(playerName, newScore);
-            sd.scores.Add(newPlayerScore);
-        }
-
-        SaveScore();
-    }
+    
     public void ClearScores()
     {
         sd.scores.Clear();

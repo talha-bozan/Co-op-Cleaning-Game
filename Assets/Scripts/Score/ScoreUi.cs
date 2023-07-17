@@ -10,19 +10,25 @@ public class ScoreUi : MonoBehaviour
 
     void Start()
     {
-        scoreManager.AddScore(new Score("talha",200));
-        scoreManager.ClearScores(); // Clear all scores
-        scoreManager.AddScore(new Score("talha", 200));
-
-
-
-        var scores = scoreManager.GetHighScores().ToArray();
-        for (int i = 0; i < scores.Length; i++)
+        for (int i = 0; i < 4; i++)
         {
             var row = Instantiate(rowUi, transform).GetComponent<RowUi>();
             row.rank.text = (i + 1).ToString();
-            row.name.text = scores[i].name;
-            row.score.text = scores[i].score.ToString();
+            row.name.text = $"Player{i}"; 
+            row.score.text = $"{0}";
         }
     }
+    public void ChangeScore(string playerID, int score)
+    {
+        // Find the row with the specified player ID
+        RowUi targetRow = transform.GetComponentsInChildren<RowUi>()
+            .FirstOrDefault(row => row.name.text == $"Player{playerID}");
+
+        if (targetRow != null)
+        {
+            // Update the score text of the target row
+            targetRow.score.text = score.ToString();
+        }
+    }
+
 }

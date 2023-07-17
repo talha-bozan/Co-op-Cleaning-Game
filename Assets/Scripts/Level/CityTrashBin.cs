@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class CityTrashBin : MonoBehaviour
@@ -11,6 +12,8 @@ public class CityTrashBin : MonoBehaviour
     private GameObject[] _trashPoolArray;
     private int _trashPoolCount = 50;
     private Transform _trashParent;
+    public ScoreUi scoreUi;
+
 
     private Vector3[] _stackPositions;
     private int _positionIndex;
@@ -21,6 +24,7 @@ public class CityTrashBin : MonoBehaviour
     [SerializeField] GameObject truckObject;
     private bool isTruckArrived = false;
     public bool stopSending = false;
+    private int trashCounter = 0;
     
     void Start()
     {   _slider.minValue = 0; 
@@ -29,6 +33,8 @@ public class CityTrashBin : MonoBehaviour
         GenerateTrashPool();
         GeneratePositions();
     }
+
+    
 
 
     private void OpenLid()
@@ -96,6 +102,7 @@ public class CityTrashBin : MonoBehaviour
     public void SendTrashToTheBin(Vector3 position)
     {   if (stopSending)
             return;
+        trashCounter += 1;
         _slider.value = _positionIndex;
         
         var lp = _positionParent.InverseTransformPoint(position);
@@ -109,6 +116,7 @@ public class CityTrashBin : MonoBehaviour
         LeanTween.move(_trashPoolArray[_positionIndex], _movementArray, .5f).setEase(LeanTweenType.easeOutQuad);
         LeanTween.rotateLocal(_trashPoolArray[_positionIndex], rndRotation, .5f);
         _positionIndex += 1;
+        scoreUi.ChangeScore("1", trashCounter * 100);
 
         if (_positionIndex >= _trashPoolCount - 1)
         {
