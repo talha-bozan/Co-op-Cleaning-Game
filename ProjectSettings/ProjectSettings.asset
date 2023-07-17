@@ -158,7 +158,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.DefaultCompany.GhostMasters
-    Standalone: com.RocinanteGames.GhostMasters
+    Standalone: com.DefaultCompany.TidyRoomRumble
     iPhone: com.RocinanteGames.GhostMasters
   buildNumber:
     Standalone: 0
@@ -816,7 +816,7 @@ PlayerSettings:
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
-    Standalone: 0
+    Standalone: 1
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}
   incrementalIl2cppBuild: {}

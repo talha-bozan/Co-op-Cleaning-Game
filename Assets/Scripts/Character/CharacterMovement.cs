@@ -7,6 +7,7 @@ public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
     [SerializeField] private float rotationSpeed;
+    public float _speedMultiplier;
 
 
     private NavMeshAgent _agent;
@@ -14,6 +15,7 @@ public class CharacterMovement : MonoBehaviour
 
     void Start()
     {
+        _speedMultiplier = 1f;
         _agent = GetComponent<NavMeshAgent>();
     }
 
@@ -30,9 +32,21 @@ public class CharacterMovement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(PlayerInput), Time.deltaTime * rotationSpeed);
     }
 
+    public void OnCharacterRun(bool isPressing)
+    {
+        if (isPressing)
+        {
+            _speedMultiplier = 1.5f;
+        }
+        else
+        {
+            _speedMultiplier = 1f;
+        }
+    }
+
     private void MoveCharacter()
     {
-        _agent.Move(transform.forward * (movementSpeed * Time.deltaTime * PlayerInput.sqrMagnitude));
+        _agent.Move(transform.forward * (movementSpeed*_speedMultiplier * Time.deltaTime * PlayerInput.sqrMagnitude));
         //transform.Translate(Vector3.forward * (movementSpeed * Time.deltaTime * PlayerInput.sqrMagnitude),Space.Self);
     }
 }

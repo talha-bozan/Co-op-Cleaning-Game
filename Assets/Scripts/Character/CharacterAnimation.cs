@@ -18,6 +18,7 @@ public class CharacterAnimation : MonoBehaviour
     
     public void PlayRuning(float magnitude)
     {
+        _animator ??= transform.GetChild(0).GetComponent<Animator>();
         _animator.SetFloat(_runingHash, magnitude);
     }
 }

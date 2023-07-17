@@ -35,9 +35,10 @@ public class CharacterCollection : MonoBehaviour
     }
 
     private void OnTriggerStay(Collider other)
-    {   if (_trashBin.stopSending)
-            return;
+    {
+        //if (_trashBin.stopSending) return;
         
+           
         if(other.TryGetComponent<CityTrashBin>(out _cityTrashBin))
         {
             if (_allTrashThrown) return;
