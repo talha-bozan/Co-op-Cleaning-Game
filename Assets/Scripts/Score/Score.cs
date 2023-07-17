@@ -1,14 +1,12 @@
-using System;
-
-[Serializable]
+[System.Serializable]
 public class Score
 {
     public string name;
     public int score;
 
-    public Score(string playerName, int playerScore)
+    public Score(string playerName, int scoreValue)
     {
         name = playerName;
-        score = playerScore;
+        score = scoreValue;
     }
 }
