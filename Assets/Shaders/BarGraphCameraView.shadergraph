@@ -1255,7 +1255,7 @@
     },
     "m_ActiveTargets": [
         {
-            "m_Id": "3d27b0842c7f43a0bf0c49128ba46149"
+            "m_Id": "882d005912cb4f55814160648a2ce340"
         }
     ]
 }
@@ -2928,26 +2928,6 @@
         "z": 0.0
     },
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalTarget",
-    "m_ObjectId": "3d27b0842c7f43a0bf0c49128ba46149",
-    "m_ActiveSubTarget": {
-        "m_Id": "93934148ba564b1b8ec401f45eee188b"
-    },
-    "m_AllowMaterialOverride": false,
-    "m_SurfaceType": 1,
-    "m_ZTestMode": 4,
-    "m_ZWriteControl": 0,
-    "m_AlphaMode": 0,
-    "m_RenderFace": 2,
-    "m_AlphaClip": false,
-    "m_CastShadows": true,
-    "m_ReceiveShadows": true,
-    "m_CustomEditorGUI": "",
-    "m_SupportVFX": false
 }
 
 {
@@ -5026,6 +5006,23 @@
 }
 
 {
+    "m_SGVersion": 2,
+    "m_Type": "UnityEditor.Rendering.BuiltIn.ShaderGraph.BuiltInTarget",
+    "m_ObjectId": "882d005912cb4f55814160648a2ce340",
+    "m_ActiveSubTarget": {
+        "m_Id": "e5806d84d08348e1aed9be4690b21a38"
+    },
+    "m_AllowMaterialOverride": false,
+    "m_SurfaceType": 0,
+    "m_ZWriteControl": 0,
+    "m_ZTestMode": 4,
+    "m_AlphaMode": 0,
+    "m_RenderFace": 2,
+    "m_AlphaClip": false,
+    "m_CustomEditorGUI": ""
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "8a9dcf54fb434d02bcb6a1edaab1bd0f",
@@ -5061,7 +5058,7 @@
     "m_DefaultRefNameVersion": 0,
     "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_8d11daf3c54641828c95b4d6b223de9a",
-    "m_OverrideReferenceName": "_fillAmount",
+    "m_OverrideReferenceName": "_FillAmount",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
@@ -7565,6 +7562,12 @@
     "m_StageCapability": 3,
     "m_Value": false,
     "m_DefaultValue": false
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.Rendering.BuiltIn.ShaderGraph.BuiltInUnlitSubTarget",
+    "m_ObjectId": "e5806d84d08348e1aed9be4690b21a38"
 }
 
 {

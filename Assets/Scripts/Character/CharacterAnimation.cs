@@ -9,6 +9,8 @@ public class CharacterAnimation : MonoBehaviour
 
     //Animation Hashes
     private int _runingHash = Animator.StringToHash("RunningMagnitude");
+    private int _attackHash = Animator.StringToHash("Attack");
+    private int _getHitHash = Animator.StringToHash("GetHit");
 
     void Start()
     {
@@ -20,5 +22,15 @@ public class CharacterAnimation : MonoBehaviour
     {
         _animator ??= transform.GetChild(0).GetComponent<Animator>();
         _animator.SetFloat(_runingHash, magnitude);
+    }
+
+    public void PlayAttack()
+    {
+        _animator.SetTrigger(_attackHash);
+    }
+
+    public void PlayGetHit()
+    {
+        _animator.SetTrigger(_getHitHash);
     }
 }

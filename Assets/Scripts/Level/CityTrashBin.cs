@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
+using Managers;
 
 public class CityTrashBin : MonoBehaviour
 {
@@ -21,33 +22,84 @@ public class CityTrashBin : MonoBehaviour
     private Vector3[] _samplePositions;
     
     private Transform _positionParent;
+
+
+    //FillBar
+    private GameObject _fillBarObject;
+    private Material _fillBarMaterial;
+    private int _fillAmountHash = Shader.PropertyToID("_FillAmount");
+    private float _fillAmount;
+
+
+
     [SerializeField] GameObject truckObject;
     private bool isTruckArrived = false;
-    public bool stopSending = false;
-    private int trashCounter = 0;
+    public bool _trashIsFull = false;
+    private int _trashCount = 0;
     
     void Start()
-    {   _slider.minValue = 0; 
-        _slider.maxValue = _trashPoolCount - 2;
+    {
+        CacheFillVariables();
         OpenLid();
         GenerateTrashPool();
         GeneratePositions();
+        RegisterEvents();
     }
 
-    
+    private void RegisterEvents()
+    {
+        EventManager.Instance.ONCityTrashIsFull += ONCityTrashIsFull;
+    }
 
+    private void ONCityTrashIsFull(bool isFull)
+    {
+        if (isFull) return;
+        _trashCount = 0;
+        _positionIndex = 0;
+        foreach (var trash in _trashPoolArray)
+        {
+            trash.SetActive(false);
+        }
+        _trashIsFull = false;
+        SetFillAmount();
+    }
+
+    #region FillBar
+
+    private void CacheFillVariables()
+    {
+        _fillBarObject = transform.GetChild(3).gameObject;
+        _fillBarMaterial = _fillBarObject.transform.GetChild(1).GetComponent<SpriteRenderer>().sharedMaterial;
+        _trashCount = 0;
+        SetFillAmount();
+    }
+
+    private void SetFillAmount()
+    {
+        _fillAmount = (float)_trashCount / (float)_trashPoolCount;
+        _fillBarMaterial.SetFloat(_fillAmountHash, _fillAmount);
+    }
+
+    #endregion
+
+    #region Lid Movement
 
     private void OpenLid()
     {
         _trashBinlid = transform.GetChild(1).gameObject;
-        LeanTween.rotateAroundLocal(_trashBinlid, Vector3.right, 75f, 2f).setEase(LeanTweenType.easeOutQuad);
+        LeanTween.rotateAroundLocal(_trashBinlid, Vector3.right, 75f, 2f).setEase(LeanTweenType.easeOutQuad).setOnComplete(()=>_fillBarObject.SetActive(true));
     }
     private void CloseLid()
     {
-        _trashBinlid = transform.GetChild(1).gameObject;
+        
         LeanTween.rotateAroundLocal(_trashBinlid, Vector3.right, -75f, 2f).setEase(LeanTweenType.easeOutQuad);
-
     }
+
+    #endregion
+
+
+    #region Trash/Position Generation
+
 
     private void GenerateTrashPool()
     {
@@ -89,6 +141,8 @@ public class CityTrashBin : MonoBehaviour
         _movementArray[2] = _positionParent.GetChild(0).position;
     }
 
+    #endregion
+
     private void sendTruckToTheBin() {
         LeanTween.move(truckObject, new Vector3(0.05f, 0.15f, -4.07f),2f);    
     }
@@ -97,13 +151,17 @@ public class CityTrashBin : MonoBehaviour
         LeanTween.move(truckObject, new Vector3(-14.74f, 0.15f, -4.07f), 2f);
     }
 
-
+    public bool CheckForSpace()
+    {
+        return _trashCount < _trashPoolCount;
+    }
 
     public void SendTrashToTheBin(Vector3 position)
-    {   if (stopSending)
-            return;
-        trashCounter += 1;
-        _slider.value = _positionIndex;
+    {
+        if (_trashIsFull) return;
+        _trashCount += 1;
+
+        SetFillAmount();
         
         var lp = _positionParent.InverseTransformPoint(position);
         _movementArray[0] = position;
@@ -116,18 +174,13 @@ public class CityTrashBin : MonoBehaviour
         LeanTween.move(_trashPoolArray[_positionIndex], _movementArray, .5f).setEase(LeanTweenType.easeOutQuad);
         LeanTween.rotateLocal(_trashPoolArray[_positionIndex], rndRotation, .5f);
         _positionIndex += 1;
-        scoreUi.ChangeScore("1", trashCounter * 100);
 
-        if (_positionIndex >= _trashPoolCount - 1)
+        if(_trashCount >= _trashPoolCount)
         {
-            stopSending = true;
-            _positionIndex = 0;
-
-            StartCoroutine(WaitToFill());
-            
+            Debug.Log("TrashIsFull");
+            EventManager.Instance.OnONCityTrashIsFull(true);
+            _trashIsFull = true;
         }
-
-        Debug.Log(_positionIndex);
     }
     public void ReFill()
     {
@@ -142,7 +195,7 @@ public class CityTrashBin : MonoBehaviour
             GenerateTrashPool();
             GeneratePositions();
             isTruckArrived = false;
-            stopSending = false;
+            _trashIsFull = false;
             _slider.value = 0;
         }
     }

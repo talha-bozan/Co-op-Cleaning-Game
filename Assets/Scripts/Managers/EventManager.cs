@@ -6,7 +6,7 @@ namespace Managers
     public sealed class EventManager : Singleton<EventManager>
     {
         
-#region Level Status
+        #region Level Status
 
         //DEFINE
         public event System.Action<bool> ONLevelEnd;
@@ -21,7 +21,7 @@ namespace Managers
             ONLevelEnd?.Invoke(isSuccess);
         }
 
-#endregion
+        #endregion
 
         #region VFX
 
@@ -40,29 +40,36 @@ namespace Managers
         #endregion
 
 
+
+
+
+
+    #region Gameplay
+
         #region Trash Collection
         public event System.Action ONTrashCollected;
         public void OnONTrashCollected()
         {
             ONTrashCollected?.Invoke();
-                
+
         }
 
-        public event System.Action<Vector3,Quaternion> ONTrashDropped;
+        public event System.Action<Vector3, Quaternion> ONTrashDropped;
         public void OnONTrashDropped(Vector3 position, Quaternion rotation)
         {
-            ONTrashDropped?.Invoke(position,rotation);
+            ONTrashDropped?.Invoke(position, rotation);
 
         }
         #endregion
 
+        #region City Trash
+        public event System.Action<bool> ONCityTrashIsFull;
+        public void OnONCityTrashIsFull(bool isFull)
+        {
+            ONCityTrashIsFull?.Invoke(isFull);
 
-
-        #region Gameplay
-
-
-
-        //Events related to gameplay
+        }
+        #endregion
 
         #endregion
 

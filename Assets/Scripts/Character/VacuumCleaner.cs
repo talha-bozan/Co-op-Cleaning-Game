@@ -7,28 +7,34 @@ using UnityEngine.UI;
 public class VacuumCleaner : MonoBehaviour
 {
     private int _totalCapacity = 20;
-    public int _collectedTrashAmount;
-    [SerializeField] private Slider _trashBinSlider;
+    private int _collectedTrashAmount;
+    private bool _wrongRoom;
+    private GameObject _pullEffect;
+
+    public bool WrongRoom { get => _wrongRoom; set => _wrongRoom = value; }
 
     private void Start()
     {
-        _trashBinSlider.minValue = 0;
-        _trashBinSlider.maxValue = _totalCapacity - 1;
+        _pullEffect = transform.GetChild(0).gameObject;
+    }
+
+    public void ActivatePullEffect(bool isActive)
+    {
+        _pullEffect.SetActive(isActive);
     }
 
     public void DecreaseCollectedCount()
     {  
         _collectedTrashAmount -= 1;
-        _trashBinSlider.value = _collectedTrashAmount;
     }
 
     public bool CheckIfThereIsSpace()
     {
+        if (_wrongRoom) return false;
         if (_collectedTrashAmount < _totalCapacity)
         {  
-            _collectedTrashAmount += 1;
-            _trashBinSlider.value = _collectedTrashAmount;
-            Debug.Log($"Total trash: {_collectedTrashAmount}");
+            _collectedTrashAmount += 1;           
+            //Debug.Log($"Total trash: {_collectedTrashAmount}");
             return true;
         }
         return false;

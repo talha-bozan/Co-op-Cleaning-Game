@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrashGenerator : MonoBehaviour
+public class RoomController : MonoBehaviour
 {
     [SerializeField] private GameObject[] trashPrefabs;
     private Transform _startPoint;
+    private int _roomId;
 
     //variables for Object Pooling
     private List<GameObject> _trashPool;
@@ -21,13 +22,14 @@ public class TrashGenerator : MonoBehaviour
     private ParticleSystem _spawnParticle;
     private Vector3 _particleScale = new Vector3(1f,.2f,1f);
 
+    public int RoomId { get => _roomId; }
 
     void Start()
     {
         
         _startPoint = transform.GetChild(0);
         _spawnParticle = _startPoint.GetChild(0).GetComponent<ParticleSystem>();
-        
+        _roomId = transform.GetSiblingIndex();
         GeneratePool();
     }
 

@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Managers;
 
 public class CharacterCollection : MonoBehaviour
 {
-    [SerializeField] private GameObject pullEffect;
+    
+    private int _userId;
     private bool _hasOpened;
     private CityTrashBin _cityTrashBin;
     private float _trashReleaseFrequency=.5f;
@@ -14,36 +16,65 @@ public class CharacterCollection : MonoBehaviour
     private VacuumCleaner _vacuumCleaner;
     private bool _canThrow;
     private bool _allTrashThrown;
-    [SerializeField] private CityTrashBin _trashBin;
+   
 
     public bool AllTrashThrown { get => _allTrashThrown; set => _allTrashThrown = value; }
+    public int UserId { get => _userId; }
+
+    private bool _cityTrashIsFull;
+
+    private GameObject _fillBarBgObject;
+    private GameObject _fillBarObject;
 
     private void Start()
     {
         _selfTrashBin = GetComponentInChildren<CharacterTrashBin>();
         _vacuumCleaner = GetComponentInChildren<VacuumCleaner>();
         _canThrow = true;
+        EventManager.Instance.ONCityTrashIsFull += ONCityTrashIsFull;
+        _fillBarBgObject = transform.GetChild(2).gameObject;
+        _fillBarObject = transform.GetChild(3).gameObject;
+    }
+
+    public void SetUserId(int id)
+    {
+        _userId = id;
+    }
+
+    private void ONCityTrashIsFull(bool isFull)
+    {
+        if (isFull) return;
+        _cityTrashIsFull = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("RoomDoor"))
+        if (other.gameObject.TryGetComponent<RoomController>(out RoomController room))
         {
+            
+            if (room.RoomId != _userId)
+            {
+                _vacuumCleaner.WrongRoom = true;
+                return;
+            }
+            _vacuumCleaner.WrongRoom = false;
             _hasOpened = !_hasOpened;
-            pullEffect.SetActive(_hasOpened);
+            _vacuumCleaner.ActivatePullEffect(_hasOpened);
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        //if (_trashBin.stopSending) return;
         
-           
         if(other.TryGetComponent<CityTrashBin>(out _cityTrashBin))
         {
-            if (_allTrashThrown) return;
+            if (_allTrashThrown || _cityTrashIsFull) return;
             if (_canThrow)
             {
+                if (!_cityTrashBin.CheckForSpace())
+                {
+                    _cityTrashIsFull = true;
+                }
                 if(_selfTrashBin.GetTrashCount() == 0)
                 {
                     _allTrashThrown = true;
@@ -69,6 +100,13 @@ public class CharacterCollection : MonoBehaviour
                 _canThrow = true;
             }
         }
+    }
+
+
+    public void ActivateFillBars(bool isActive)
+    {
+        _fillBarObject.SetActive(isActive);
+        _fillBarBgObject.SetActive(isActive);
     }
 
 }

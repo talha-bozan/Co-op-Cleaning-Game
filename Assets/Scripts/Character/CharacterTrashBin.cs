@@ -5,16 +5,25 @@ using Managers;
 
 public class CharacterTrashBin : MonoBehaviour
 {
+    private int _userId;
     private Vector3 _trashBagStartPosition;
     private Vector3[] _trashBagPositions;
     private TrashBagController[] _trashBags;
     private int _trashIndex;
     private int _trashCount;
+    private int _trashCapacity=20;
     private CharacterCollection _characterCollection;
+
+    //FillBar
+    private GameObject _fillBarObject;
+    private Material _fillBarMaterial;
+    private int _fillAmountHash = Shader.PropertyToID("_FillAmount");
+    private float _fillAmount;
 
     private void Start()
     {
         CacheObjects();
+        
         RegisterEvents();
     }
 
@@ -23,7 +32,27 @@ public class CharacterTrashBin : MonoBehaviour
         EventManager.Instance.ONTrashCollected += ONTrashCollected;
     }
 
-    
+    #region FillBar
+
+    private void CacheFillVariables()
+    {
+        var userId = _characterCollection.UserId;
+        _fillBarMaterial = MaterialDatabase.Instance._fillBarMaterials[userId * 1];
+        _characterCollection.transform.GetChild(3).GetComponent<SpriteRenderer>().sharedMaterial = _fillBarMaterial;
+        _characterCollection.transform.GetChild(2).GetComponent<SpriteRenderer>().sharedMaterial = MaterialDatabase.Instance._fillBarMaterials[userId * 1+2];
+        _trashCount = 0;
+        SetFillAmount();
+    }
+
+    private void SetFillAmount()
+    {
+        _fillAmount = (float)_trashCount / (float)_trashCapacity;
+        _fillBarMaterial.SetFloat(_fillAmountHash, _fillAmount);
+    }
+
+    #endregion
+
+
 
     private void CacheObjects()
     {
@@ -40,6 +69,7 @@ public class CharacterTrashBin : MonoBehaviour
         }
 
         _characterCollection = GetComponentInParent<CharacterCollection>();
+        CacheFillVariables();
     }
 
     #region event Callbacks
@@ -58,6 +88,7 @@ public class CharacterTrashBin : MonoBehaviour
         _trashBags[_trashIndex].gameObject.SetActive(true);
         _trashBags[_trashIndex].MoveToBin(_trashBagPositions[_trashIndex]);
         _trashIndex += 1;
+        SetFillAmount();
     }
 
     public int GetTrashCount()
@@ -70,6 +101,7 @@ public class CharacterTrashBin : MonoBehaviour
         _trashIndex -= 1;
         _trashBags[_trashIndex].gameObject.SetActive(false);
         _trashCount -= 1;
+        SetFillAmount();
         //Invoke(nameof(DecreaseIndex), .1f);
         return _trashBags[_trashIndex].transform.position;
     }

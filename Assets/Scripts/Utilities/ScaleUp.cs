@@ -6,21 +6,22 @@ namespace Utilities
     public class ScaleUp : MonoBehaviour
     {
         private LTDescr _scaleTween;
-        private static readonly Vector3 ScaleUpScale = new Vector3(1.2f, 1.2f, 1.2f);
+        private static readonly Vector3 ScaleUpScale = new Vector3(.8f, .8f, .8f);
         private void OnEnable()
         {
-            Invoke(nameof(StartTween),2.3f);
+            StartTween();
         }
 
 
         private void StartTween()
         {
-            var rect = GetComponent<RectTransform>();
-            _scaleTween = LeanTween.scale(rect, ScaleUpScale, 1f).setEase(LeanTweenType.easeOutElastic).setLoopPingPong(100);
+            
+            _scaleTween = LeanTween.scale(gameObject, ScaleUpScale, .5f).setEase(LeanTweenType.easeOutElastic);
         }
 
         private void OnDisable()
         {
+            if (_scaleTween == null) return;
             _scaleTween.pause();
             _scaleTween.reset();
         }
