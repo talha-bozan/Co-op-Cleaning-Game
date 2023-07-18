@@ -84,6 +84,7 @@ public class CharacterCollection : MonoBehaviour
                 _canThrow = false;
                 _cityTrashBin.SendTrashToTheBin(_selfTrashBin.GetReleasePosition());
                 _vacuumCleaner.DecreaseCollectedCount();
+                EventManager.Instance.OnONGarbageDumped(_userId);
             }
                 
             

@@ -12,6 +12,9 @@ public class CharacterAnimation : MonoBehaviour
     private int _attackHash = Animator.StringToHash("Attack");
     private int _getHitHash = Animator.StringToHash("GetHit");
 
+    private int _wonHash = Animator.StringToHash("Won");
+    private int _lostHash = Animator.StringToHash("Lost");
+
     void Start()
     {
         _animator = transform.GetChild(0).GetComponent<Animator>();
@@ -32,5 +35,13 @@ public class CharacterAnimation : MonoBehaviour
     public void PlayGetHit()
     {
         _animator.SetTrigger(_getHitHash);
+    }
+
+    public void PlayWon(){
+        _animator.SetTrigger(_wonHash);
+    }
+
+    public void PlayLost(){
+        _animator.SetTrigger(_lostHash);
     }
 }

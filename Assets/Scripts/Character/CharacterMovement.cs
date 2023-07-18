@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Managers;
+using System;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class CharacterMovement : MonoBehaviour
 
     private NavMeshAgent _agent;
     public Vector3 PlayerInput { get; set; }
+    public int UserId { get => _userId;}
 
 
     //GettingHit
@@ -21,17 +24,37 @@ public class CharacterMovement : MonoBehaviour
     private ParticleSystem _getHitParticle;
     private ParticleSystem _smashParticle;
 
+    private bool _levelEnded;
+    private int _userId;
+
     void Start()
     {
         _getHitParticle = transform.GetChild(4).GetComponent<ParticleSystem>();
         _smashParticle = transform.GetChild(5).GetComponent<ParticleSystem>();
         _animation = GetComponent<CharacterAnimation>();
         _collection = GetComponent<CharacterCollection>();
+       Invoke(nameof(GetUserId),.25f);
         _speedMultiplier = 1f;
         _agent = GetComponent<NavMeshAgent>();
+        EventManager.Instance.ONAllTrashCleaned += ONAllTrashCleaned;
     }
 
-    
+    private void GetUserId(){
+         _userId = _collection.UserId;
+    }
+
+    private void ONAllTrashCleaned(int userId)
+    {
+        _levelEnded = true;
+        if(_userId != userId)
+        {
+            _animation.PlayLost();
+            return;
+        }
+        _animation.PlayWon();
+
+    }
+
     void Update()
     {
         UpdateRotation();
@@ -59,6 +82,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void MoveCharacter()
     {
+        if(_levelEnded)return;
         _agent.Move(transform.forward * (movementSpeed*_speedMultiplier * Time.deltaTime * PlayerInput.sqrMagnitude));
         //transform.Translate(Vector3.forward * (movementSpeed * Time.deltaTime * PlayerInput.sqrMagnitude),Space.Self);
     }
@@ -73,7 +97,7 @@ public class CharacterMovement : MonoBehaviour
         _getHitParticle.Play(true);
         _speedMultiplier = .1f;
         _animation.PlayGetHit();
-        Invoke(nameof(ResetGetHit), 3f);
+        Invoke(nameof(ResetGetHit), 5f);
     }
 
     private void ResetGetHit()

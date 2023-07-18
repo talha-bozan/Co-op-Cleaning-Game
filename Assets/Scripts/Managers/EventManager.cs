@@ -47,10 +47,10 @@ namespace Managers
     #region Gameplay
 
         #region Trash Collection
-        public event System.Action ONTrashCollected;
-        public void OnONTrashCollected()
+        public event System.Action<int> ONTrashCollected;
+        public void OnONTrashCollected(int roomId)
         {
-            ONTrashCollected?.Invoke();
+            ONTrashCollected?.Invoke(roomId);
 
         }
 
@@ -71,7 +71,19 @@ namespace Managers
         }
         #endregion
 
+        #region UI
+        public event System.Action<int> ONGarbageDumped;
+        public void OnONGarbageDumped(int userId){
+            ONGarbageDumped?.Invoke(userId);
+        }
+
+        public event System.Action<int> ONAllTrashCleaned;
+        public void OnONAllTrashCleaned(int userId){
+           ONAllTrashCleaned?.Invoke(userId);
+        }
         #endregion
+
+    #endregion
 
 
 
@@ -88,6 +100,14 @@ namespace Managers
             //Trash Movement
             ONTrashDropped = null;
             ONTrashCollected = null;
+            ONCityTrashIsFull = null;
+            ONTrashDropped = null;
+            ONTrashCollected = null;
+            ONAllTrashCleaned = null;
+
+            //UI
+            ONGarbageDumped = null;
+            
         }
 
 

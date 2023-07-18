@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class CharacterAttack : MonoBehaviour
 {
+
+    private CharacterCollection _collection;
     private CharacterAnimation _animation;
     private WeaponController _weapon;
     private bool _onCoolDown;
 
+    private int _userId;
+
     void Start()
     {
+        _collection = GetComponent<CharacterCollection>();
         _weapon = GetComponentInChildren<WeaponController>();
         _weapon.gameObject.SetActive(false);
         _animation = GetComponent<CharacterAnimation>();
+        Invoke(nameof(GetUserId),.25f);
+    }
+
+    private void GetUserId(){
+         _userId = _collection.UserId;
     }
 
     public void InitAttack()
@@ -26,7 +36,7 @@ public class CharacterAttack : MonoBehaviour
 
     public void AttackNow()
     {
-        _weapon.Attack();
+        _weapon.Attack(_userId);
     }
 
     private void ResetCoolDown()

@@ -25,6 +25,11 @@ public class CharacterTrashBin : MonoBehaviour
         CacheObjects();
         
         RegisterEvents();
+        Invoke(nameof(GetUserId),.25f);
+    }
+
+    private void GetUserId(){
+        _userId = _characterCollection.UserId;
     }
 
     private void RegisterEvents()
@@ -73,8 +78,9 @@ public class CharacterTrashBin : MonoBehaviour
     }
 
     #region event Callbacks
-    private void ONTrashCollected()
+    private void ONTrashCollected(int roomId)
     {
+        if(_userId != roomId)return;
         _characterCollection.AllTrashThrown = false;
         Invoke(nameof(ThrowTrashbag), .6f);
     }
@@ -101,6 +107,7 @@ public class CharacterTrashBin : MonoBehaviour
         _trashIndex -= 1;
         _trashBags[_trashIndex].gameObject.SetActive(false);
         _trashCount -= 1;
+        _trashCount = Mathf.Clamp(_trashCount,-1,_trashCapacity-1);
         SetFillAmount();
         //Invoke(nameof(DecreaseIndex), .1f);
         return _trashBags[_trashIndex].transform.position;
