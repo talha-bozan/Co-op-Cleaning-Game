@@ -21,7 +21,7 @@ public class PlayerMovementController : NetworkBehaviour
 
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "newgamescene")
+        if (SceneManager.GetActiveScene().name == "4PlayerGameScene")
         {
             if (PlayerModel.activeSelf == false)
             {

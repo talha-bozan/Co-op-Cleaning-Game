@@ -7,7 +7,7 @@ public class PlayerInteractions : NetworkBehaviour
     [SerializeField] private float interactionRange = 5f;
     [SerializeField] private LayerMask interactionMask;
     [SerializeField] private float jumpForce = 5f;
-    [SyncVar(hook = nameof(OnHealthChanged))] private int health = 100;
+    [SerializeField] [SyncVar(hook = nameof(OnHealthChanged))] private int health = 100;
 
     private void Update()
     {
