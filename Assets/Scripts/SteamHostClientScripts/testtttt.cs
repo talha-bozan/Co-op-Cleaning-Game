@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class testtttt : NetworkBehaviour
+public class PlayerHealth : NetworkBehaviour
 {
-    [SyncVar] public int health = 4;
+    private int health = 4;
     [SerializeField] private LayerMask pLayerMask;
 
     // Update is called once per frame
@@ -23,7 +23,7 @@ public class testtttt : NetworkBehaviour
 
         foreach (Collider player in playersInRange)
         {
-            if (player.gameObject == this.gameObject) // Skip over the "owner" player
+            if (player.gameObject == this.gameObject)
                 continue;
 
             if (Input.GetKey(KeyCode.LeftControl))
@@ -36,11 +36,19 @@ public class testtttt : NetworkBehaviour
     [Command]
     void CmdHandleDetection(GameObject detectedPlayer)
     {
-
-        testtttt playerScript = detectedPlayer.GetComponent<testtttt>();
+        Debug.Log("Handler");
+        PlayerHealth playerScript = detectedPlayer.GetComponent<PlayerHealth>();
         if (playerScript != null)
         {
-            playerScript.health--;
+            playerScript.TakeDamage();
         }
+    }
+
+    void TakeDamage()
+    {
+        health--;
+        Debug.Log("Player health: " + health);
+
+        // You can add any other logic here, e.g., checking if the player is dead and handling that case.
     }
 }
