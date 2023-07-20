@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 2010133212982787084}
   - component: {fileID: 8966889239371646195}
   - component: {fileID: 6049884727361799825}
-  - component: {fileID: -1977951041444548017}
+  - component: {fileID: -84964038577738804}
   m_Layer: 3
   m_Name: PlayerObject
   m_TagString: Player
@@ -226,7 +226,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   PlayerModel: {fileID: 8890124540729742004}
---- !u!114 &-1977951041444548017
+--- !u!114 &-84964038577738804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,16 +235,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8169795476246165299}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee6fb8e866935054e82a6411592ff6fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 5bfc8593cbb99f64cbb4483b9992174f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  health: 4
-  pLayerMask:
+  interactionRange: 5
+  interactionMask:
     serializedVersion: 2
     m_Bits: 8
+  jumpForce: 5
 --- !u!1 &8890124540729742004
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using Mirror;
 
 public class PlayerHealth : NetworkBehaviour
 {
-    private int health = 4;
+    [SerializeField] private int health = 4;
     [SerializeField] private LayerMask pLayerMask;
 
     // Update is called once per frame
@@ -14,6 +14,10 @@ public class PlayerHealth : NetworkBehaviour
         if (isLocalPlayer)
         {
             DetectPlayers();
+            if(health< -20)
+            {
+                NetworkServer.Destroy(gameObject);
+            }
         }
     }
 
