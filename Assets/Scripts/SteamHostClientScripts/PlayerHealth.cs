@@ -52,3 +52,5 @@ public class PlayerHealth : NetworkBehaviour
         // You can add any other logic here, e.g., checking if the player is dead and handling that case.
     }
 }
+
+
