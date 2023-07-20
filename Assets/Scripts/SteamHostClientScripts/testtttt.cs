@@ -31,7 +31,10 @@ public class testtttt : NetworkBehaviour
         {
             if (player.gameObject == this.gameObject) // Skip over the "owner" player
                 continue;
-            Debug.Log("buldu");
+
+            if (Input.GetKey(KeyCode.LeftControl)){ Debug.Log("bldu"); }
+                
+            
 
 
         }
