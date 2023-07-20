@@ -8,23 +8,30 @@ public class testtttt : NetworkBehaviour
 {
 
     [SyncVar] public int health = 4;
+    [SerializeField] private LayerMask pLayerMask;
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(isLocalPlayer)
+        {
+            detector();
+        }
     }
 
 
 
-    [ServerCallback]
-    void OnTriggerEnter(Collider other)
+    [Command]
+    void detector()
     {
-        if (other.CompareTag("Player"))
-        {
-            if (other == this.gameObject) { return; }
 
-            NetworkServer.Destroy(other.gameObject);
+        Collider[] playersInRange = Physics.OverlapSphere(this.transform.position, 2f, pLayerMask);
+
+        foreach (Collider player in playersInRange)
+        {
+            if (player.gameObject == this.gameObject) // Skip over the "owner" player
+                continue;
+            Debug.Log("buldu");
 
 
         }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8806815716001731805}
   - component: {fileID: 5599833088463252410}
   - component: {fileID: 7896948332864279416}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player1 (1)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -98,8 +98,7 @@ GameObject:
   - component: {fileID: 8966889239371646195}
   - component: {fileID: 6049884727361799825}
   - component: {fileID: -1977951041444548017}
-  - component: {fileID: 7951492746127170237}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerObject
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -243,19 +242,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   health: 4
---- !u!65 &7951492746127170237
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8169795476246165299}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.99, y: 1, z: 3.53}
-  m_Center: {x: 0, y: 0, z: 0}
+  pLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &8890124540729742004
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,7 +254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1074455917192329721}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
