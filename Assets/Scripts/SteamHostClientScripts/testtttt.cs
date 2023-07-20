@@ -24,8 +24,9 @@ public class testtttt : NetworkBehaviour
         {
             if (other == this.gameObject) { return; }
 
-            --other.GetComponent<testtttt>().health;
-            
+            NetworkServer.Destroy(other.gameObject);
+
+
         }
     }
 }
