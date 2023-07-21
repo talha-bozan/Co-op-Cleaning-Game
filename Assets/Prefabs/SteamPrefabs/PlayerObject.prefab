@@ -350,7 +350,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  playerTransform: {fileID: 6570514104863922804}
+  playerBody: {fileID: 0}
+  smoothSpeed: 0.125
+  rotationSpeed: 5
   cameraHolder: {fileID: 8288441478985473471}
   offset: {x: 0, y: 1, z: -4}
 --- !u!195 &-8883066472512423300
@@ -413,7 +415,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8288441478985473471}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: -4.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
