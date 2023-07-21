@@ -11,6 +11,11 @@ public class PlayerInteractions : NetworkBehaviour
 
     private void Update()
     {
+        DamageHit();
+    }
+
+    private void DamageHit()
+    {
         if (!isLocalPlayer || !Input.GetKeyDown(KeyCode.LeftControl))
             return;
 
@@ -20,8 +25,7 @@ public class PlayerInteractions : NetworkBehaviour
             if (collider.TryGetComponent<PlayerInteractions>(out PlayerInteractions targetInteractions) && targetInteractions != this)
             {
                 // If we hit another player/enemy, perform the interaction
-                targetInteractions.TakeDamage(10);
-                targetInteractions.Jump();
+
                 CmdPerformInteraction(targetInteractions.gameObject);
             }
         }
