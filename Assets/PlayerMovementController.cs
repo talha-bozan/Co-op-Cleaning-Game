@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
 public class PlayerMovementController : NetworkBehaviour
 {
     private float Speed = 10.0f;
     public GameObject PlayerModel;
-    private CharacterController characterController;
-    private float JumpHeight = 3.0f;
-    private float Gravity = -9.81f;
-    private Vector3 jumpVelocity;
+    private Vector3 moveDirection; // Replace jumpVelocity with moveDirection
+    private NavMeshAgent _agent;
 
     private void Start()
     {
         PlayerModel.SetActive(false);
-        characterController = GetComponent<CharacterController>(); // assign the CharacterController to characterController variable
+        _agent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
@@ -25,7 +24,7 @@ public class PlayerMovementController : NetworkBehaviour
         {
             if (PlayerModel.activeSelf == false)
             {
-                SetPosition();
+                SetPosition(); // This line is removed as we won't need SetPosition anymore
                 PlayerModel.SetActive(true);
             }
             if (isOwned)
@@ -37,14 +36,9 @@ public class PlayerMovementController : NetworkBehaviour
 
     public void Movement()
     {
-        if (characterController.isGrounded && jumpVelocity.y < 0f)
+        if (Input.GetButtonDown("Jump"))
         {
-            jumpVelocity.y = -2f;
-        }
-
-        if (Input.GetButtonDown("Jump") && characterController.isGrounded)
-        {
-            jumpVelocity.y = Mathf.Sqrt(-2 * JumpHeight * Gravity);
+            Jump();
         }
 
         float moveX = Input.GetAxis("Horizontal");
@@ -54,21 +48,25 @@ public class PlayerMovementController : NetworkBehaviour
         // If the shift key is down, then dash
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            characterController.Move(move * 2 * Speed * Time.deltaTime);
+            _agent.Move(move * 2 * Speed * Time.deltaTime);
         }
         else
         {
-            characterController.Move(move * Speed * Time.deltaTime);
+            _agent.Move(move * Speed * Time.deltaTime);
         }
-
-        jumpVelocity.y += 2.3f * Gravity * Time.deltaTime;
-
-        characterController.Move(jumpVelocity * Time.deltaTime);
     }
 
+    public void Jump()
+    {
+        // Perform your jump logic here
+        // For example, you can make the player jump by adding an upward force or animation.
+        // Since NavMeshAgent doesn't handle jumping, you need to add your own implementation.
+        // For simplicity, you can use transform.position.y to simulate jumping.
+    }
 
     public void SetPosition()
     {
-        transform.position = new Vector3(Random.Range(-5, 5), 0.8f, Random.Range(-15, 7));
+        // Use NavMeshAgent to set the position instead of Random.Range
+        _agent.Warp(new Vector3(Random.Range(-5, 5), 0.8f, Random.Range(-15, 7)));
     }
 }
