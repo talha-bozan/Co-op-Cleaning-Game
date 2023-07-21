@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
+
 public class CameraController : NetworkBehaviour
 {
-
     public GameObject cameraHolder;
     public Vector3 offset;
 
@@ -13,14 +13,12 @@ public class CameraController : NetworkBehaviour
     {
         cameraHolder.SetActive(true);
     }
+
     public void Update()
     {
-
-
         if (SceneManager.GetActiveScene().name == "4PlayerGameScene")
         {
             cameraHolder.transform.position = transform.position + offset;
         }
     }
-        
 }
