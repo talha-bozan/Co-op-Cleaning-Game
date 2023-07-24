@@ -15,7 +15,7 @@ public class TextureSwitcher : MonoBehaviour
 
 
     private void SwitchTexture(){
-        var collection = transform.parent.parent.GetComponent<CharacterCollection>();
+        var collection = transform.parent.parent.parent.GetComponent<CharacterCollection>();
         _id = collection.UserId;
         if(collection.UserId == 0)return;
         _material = GetComponent<SkinnedMeshRenderer>().material;
