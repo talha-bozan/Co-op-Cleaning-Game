@@ -1179,7 +1179,7 @@ MonoBehaviour:
   LobbyNameText: {fileID: 1573820889}
   PlayerListViewContent: {fileID: 973977098}
   PlayerListItemPrefab: {fileID: 6696713274354916816, guid: 29e9bbccb63d2d64eb8ea499ffd18559, type: 3}
-  LocalPlayerObject: {fileID: 0}
+  LocalPlayerObject: {fileID: 7933041147883775766, guid: 3c9c4d2085159384dafe943557d7f6b7, type: 3}
   CurrentLobbyID: 0
   PlayerItemCreated: 0
   LocalplayerController: {fileID: 0}

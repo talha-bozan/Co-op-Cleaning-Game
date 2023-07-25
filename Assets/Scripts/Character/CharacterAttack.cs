@@ -15,7 +15,7 @@ public class CharacterAttack : MonoBehaviour
     void Start()
     {
         _collection = GetComponent<CharacterCollection>();
-        _weapon = GetComponentInChildren<WeaponController>();
+       // _weapon = GetComponentInChildren<WeaponController>();
         _weapon.gameObject.SetActive(false);
         _animation = GetComponent<CharacterAnimation>();
         Invoke(nameof(GetUserId),.25f);
