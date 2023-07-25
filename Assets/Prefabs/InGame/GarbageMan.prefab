@@ -49194,7 +49194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &791847387425627733
 Transform:
   m_ObjectHideFlags: 0
@@ -49422,8 +49422,9 @@ GameObject:
   - component: {fileID: 5704476831920818603}
   - component: {fileID: 7933041147883775764}
   - component: {fileID: 5211945027498797860}
-  - component: {fileID: 7205017326569152771}
   - component: {fileID: 773292575411346138}
+  - component: {fileID: 4838972130794208640}
+  - component: {fileID: -6863098528076115787}
   m_Layer: 3
   m_Name: GarbageMan
   m_TagString: Player
@@ -49662,18 +49663,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 5
   _camera: {fileID: 4126671947101625607}
---- !u!114 &7205017326569152771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7933041147883775766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 947c24f2bfd174f3783b0705a158acb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &773292575411346138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49686,6 +49675,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d6f5ce00a984a5092abe2af82ae727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4838972130794208640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933041147883775766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b218d1331a2cfae4db94a4a9f2e60406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6863098528076115787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933041147883775766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a33f3e55eb6947bfb55744cf9ac5832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weapon: {fileID: 1425950402801475212}
 --- !u!1 &7933041148678143079
 GameObject:
   m_ObjectHideFlags: 0

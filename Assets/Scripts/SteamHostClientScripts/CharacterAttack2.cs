@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterAttack : MonoBehaviour
+public class CharacterAttack2 : MonoBehaviour
 {
 
     private CharacterCollection _collection;
@@ -18,13 +18,13 @@ public class CharacterAttack : MonoBehaviour
         _weapon = GetComponentInChildren<WeaponController>();
         _weapon.gameObject.SetActive(false);
         _animation = GetComponent<CharacterAnimation>();
-        Invoke(nameof(GetUserId),.25f);
-        Debug.Log("Weapon located" + _weapon);
-        
+        Invoke(nameof(GetUserId), .25f);
+
     }
 
-    private void GetUserId(){
-         _userId = _collection.UserId;
+    private void GetUserId()
+    {
+        _userId = _collection.UserId;
     }
 
     public void InitAttack()
@@ -47,5 +47,5 @@ public class CharacterAttack : MonoBehaviour
         _onCoolDown = false;
     }
 
-    
+
 }

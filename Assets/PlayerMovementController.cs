@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Mirror;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PlayerMovementController : NetworkBehaviour
 {
@@ -11,13 +12,22 @@ public class PlayerMovementController : NetworkBehaviour
     private Vector3 moveDirection;
     private NavMeshAgent _agent;
 
+    private Vector3 _userInput;
+    private CharacterAnim _animation;
+    private CharacterAttack _attack;
+
+
     // Add a reference to the PlayerRotationController
     private PlayerRotationController rotationController;
 
     private void Start()
     {
+        
         PlayerModel.SetActive(false);
         _agent = GetComponent<NavMeshAgent>();
+        _attack = GetComponent<CharacterAttack>();
+        _animation = GetComponent<CharacterAnim>();
+
 
         // Find the PlayerRotationController attached to the player
         rotationController = GetComponent<PlayerRotationController>();
@@ -35,6 +45,7 @@ public class PlayerMovementController : NetworkBehaviour
             if (isOwned)
             {
                 Movement();
+                ONCatchPlayer();
             }
         }
     }
@@ -58,6 +69,11 @@ public class PlayerMovementController : NetworkBehaviour
         {
             _agent.Move(move * Speed * Time.deltaTime);
         }
+
+        _userInput.x = moveX;
+        _userInput.z = moveZ;
+        _userInput.Normalize();
+        _animation.PlayRuning(_userInput.sqrMagnitude);
     }
 
     public void Jump()
@@ -69,4 +85,14 @@ public class PlayerMovementController : NetworkBehaviour
     {
         _agent.Warp(new Vector3(Random.Range(-5, 5), 0.8f, Random.Range(-15, 7)));
     }
+
+    private void ONCatchPlayer()
+    {
+        if(Input.GetKey(KeyCode.LeftControl))
+        {
+            _attack.InitAttack();
+
+        }
+    }
+
 }
