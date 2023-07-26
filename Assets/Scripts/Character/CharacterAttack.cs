@@ -7,7 +7,7 @@ public class CharacterAttack : MonoBehaviour
 
     private CharacterCollection _collection;
     private CharacterAnimation _animation;
-    [SerializeField] private WeaponController _weapon;
+    private WeaponController _weapon;
     private bool _onCoolDown;
 
     private int _userId;
@@ -15,7 +15,7 @@ public class CharacterAttack : MonoBehaviour
     void Start()
     {
         _collection = GetComponent<CharacterCollection>();
-       // _weapon = GetComponentInChildren<WeaponController>();
+        _weapon = GetComponentInChildren<WeaponController>();
         _weapon.gameObject.SetActive(false);
         _animation = GetComponent<CharacterAnimation>();
         Invoke(nameof(GetUserId),.25f);

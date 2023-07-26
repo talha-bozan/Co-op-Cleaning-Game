@@ -6,18 +6,18 @@ public class CharacterAttack2 : MonoBehaviour
 {
 
     private CharacterCollection _collection;
-    private CharacterAnimation _animation;
+    private CharacterAnim _animation;
     [SerializeField] private WeaponController _weapon;
     private bool _onCoolDown;
 
     private int _userId;
-
+        
     void Start()
     {
         _collection = GetComponent<CharacterCollection>();
-        _weapon = GetComponentInChildren<WeaponController>();
+        //_weapon = GetComponentInChildren<WeaponController>();
         _weapon.gameObject.SetActive(false);
-        _animation = GetComponent<CharacterAnimation>();
+        _animation = GetComponent<CharacterAnim>();
         Invoke(nameof(GetUserId), .25f);
 
     }

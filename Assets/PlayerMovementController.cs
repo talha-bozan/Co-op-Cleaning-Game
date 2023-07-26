@@ -14,7 +14,7 @@ public class PlayerMovementController : NetworkBehaviour
 
     private Vector3 _userInput;
     private CharacterAnim _animation;
-    private CharacterAttack _attack;
+    private CharacterAttack2 _attack;
 
 
     // Add a reference to the PlayerRotationController
@@ -25,7 +25,7 @@ public class PlayerMovementController : NetworkBehaviour
         
         PlayerModel.SetActive(false);
         _agent = GetComponent<NavMeshAgent>();
-        _attack = GetComponent<CharacterAttack>();
+        _attack = GetComponent<CharacterAttack2>();
         _animation = GetComponent<CharacterAnim>();
 
 
