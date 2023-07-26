@@ -18,7 +18,7 @@ public class PlayerInteractions : NetworkBehaviour
     {
         if (!isLocalPlayer || !Input.GetKeyDown(KeyCode.LeftControl))
             return;
-
+        Debug.Log("hayir");
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange, interactionMask);
         foreach (var collider in hitColliders)
         {

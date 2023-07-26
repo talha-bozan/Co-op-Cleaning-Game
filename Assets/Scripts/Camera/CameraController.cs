@@ -21,7 +21,7 @@ public class CameraController : NetworkBehaviour
     }
     private void LateUpdate()
     {
-        if (!isOwned || playerBody == null)
+        if (!isOwned || playerBody == null || isLocalPlayer)
             return;
 
         // Calculate the desired position and rotation based on the player's body
