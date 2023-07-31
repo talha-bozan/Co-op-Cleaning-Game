@@ -2629,7 +2629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4133211326439258232}
   - component: {fileID: 5776515628074395803}
-  - component: {fileID: 9145172571000888920}
+  - component: {fileID: 5398294610688156111}
   m_Layer: 0
   m_Name: 'character '
   m_TagString: Untagged
@@ -2739,7 +2739,7 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.006051898, y: 0.19263262, z: -0.008441508}
     m_Extent: {x: 1.1522624, y: 0.98199886, z: 0.29907292}
   m_DirtyAABB: 0
---- !u!114 &9145172571000888920
+--- !u!114 &5398294610688156111
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2748,7 +2748,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 938399542000403238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5656dce8983ee8b448a410f0e0d602f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a76467f961925d4eafc3f8d4205521a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _texture: {fileID: 2800000, guid: 439a831c5bdba0641aaf7e66491196c4, type: 3}
@@ -49141,7 +49141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5773542783649332304}
-  - component: {fileID: 5773542783649332335}
+  - component: {fileID: 7203591470007614626}
   m_Layer: 0
   m_Name: GarbageBin
   m_TagString: Untagged
@@ -49167,7 +49167,7 @@ Transform:
   m_Father: {fileID: 3475515603108536079}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 6.47, y: 180, z: 0}
---- !u!114 &5773542783649332335
+--- !u!114 &7203591470007614626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -49176,7 +49176,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7369269197805112899}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 284cce6a4462c42f2b23276907fa46f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ca798fd6a891e54a842f29d8250e10d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7403254961704849579
@@ -49422,9 +49422,9 @@ GameObject:
   - component: {fileID: 5704476831920818603}
   - component: {fileID: 7933041147883775764}
   - component: {fileID: 5211945027498797860}
-  - component: {fileID: 773292575411346138}
   - component: {fileID: 4838972130794208640}
   - component: {fileID: 8346905177642505530}
+  - component: {fileID: -1342427928219605580}
   m_Layer: 3
   m_Name: GarbageMan
   m_TagString: Player
@@ -49663,18 +49663,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 5
   _camera: {fileID: 4126671947101625607}
---- !u!114 &773292575411346138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7933041147883775766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25d6f5ce00a984a5092abe2af82ae727, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4838972130794208640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49700,6 +49688,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weapon: {fileID: 1425950402801475212}
+--- !u!114 &-1342427928219605580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933041147883775766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36c1e39410290e4e9793fab8c14a8f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selfTrashBin: {fileID: 7203591470007614626}
+  _vacuumCleaner: {fileID: 7933041149389247460}
 --- !u!1 &7933041148678143079
 GameObject:
   m_ObjectHideFlags: 0
