@@ -12,10 +12,20 @@ public class PlayerMovementController : NetworkBehaviour
     private Vector3 moveDirection;
     private NavMeshAgent _agent;
 
+
+    public int UserId { get => _userId; }
+
     private Vector3 _userInput;
+    private CharacterCollection2 _collection;
     private CharacterAnim _animation;
     private CharacterAttack2 _attack;
 
+    private bool _characterGotHit;
+    private ParticleSystem _getHitParticle;
+    private ParticleSystem _smashParticle;
+
+    private bool _levelEnded;
+    private int _userId;
 
     // Add a reference to the PlayerRotationController
     private PlayerRotationController rotationController;
@@ -23,14 +33,25 @@ public class PlayerMovementController : NetworkBehaviour
     private void Start()
     {
         
+
         PlayerModel.SetActive(false);
+        _getHitParticle = transform.GetChild(0).GetChild(4).GetComponent<ParticleSystem>();
+        _smashParticle = transform.GetChild(0).GetChild(5).GetComponent<ParticleSystem>();
         _agent = GetComponent<NavMeshAgent>();
         _attack = GetComponent<CharacterAttack2>();
         _animation = GetComponent<CharacterAnim>();
+        _collection = GetComponent<CharacterCollection2>();
+
+        Invoke(nameof(GetUserId), .25f);
 
 
         // Find the PlayerRotationController attached to the player
         rotationController = GetComponent<PlayerRotationController>();
+    }
+
+    private void GetUserId()
+    {
+        _userId = _collection.UserId;
     }
 
     void Update()
@@ -95,4 +116,36 @@ public class PlayerMovementController : NetworkBehaviour
         }
     }
 
+    public void ONCharacterGetHit()
+    {
+        if (_characterGotHit) return;
+        _collection.ActivateFillBars(false);
+        _characterGotHit = true;
+        _smashParticle.Play(true);
+        _getHitParticle.Play(true);
+        _animation.PlayGetHit();
+        Invoke(nameof(ResetGetHit), 5f);
+    }
+
+    private void ResetGetHit()
+    {
+        _collection.ActivateFillBars(true);
+        _getHitParticle.Stop(true);
+        _characterGotHit = false;
+    }
+
+    private void ONAllTrashCleaned(int userId)
+    {
+        _levelEnded = true;
+        if (_userId != userId)
+        {
+            _animation.PlayLost();
+            return;
+        }
+        _animation.PlayWon();
+
+    }
+
 }
+
+

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterAttack2 : MonoBehaviour
 {
 
-    private CharacterCollection _collection;
+    private CharacterCollection2 _collection;
     private CharacterAnim _animation;
     [SerializeField] private WeaponController _weapon;
     private bool _onCoolDown;
@@ -14,7 +14,7 @@ public class CharacterAttack2 : MonoBehaviour
         
     void Start()
     {
-        _collection = GetComponent<CharacterCollection>();
+        _collection = GetComponent<CharacterCollection2>();
         //_weapon = GetComponentInChildren<WeaponController>();
         _weapon.gameObject.SetActive(false);
         _animation = GetComponent<CharacterAnim>();
