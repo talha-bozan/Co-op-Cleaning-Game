@@ -38,7 +38,7 @@ public class SteamLobby : MonoBehaviour
 
         LobbyList = Callback<LobbyMatchList_t>.Create(OnGetLobbyList);
         LobbyDataUpdated = Callback<LobbyDataUpdate_t>.Create(OnGetLobbyData);
-       
+
     }
 
     public void HostLobby()
@@ -86,12 +86,13 @@ public class SteamLobby : MonoBehaviour
         SteamMatchmaking.AddRequestLobbyListResultCountFilter(60);
         SteamMatchmaking.RequestLobbyList();
     }
-    void OnGetLobbyList(LobbyMatchList_t result) {
-    if(LobbiesListManager.instance.listOfLobbies.Count > 0)
+    void OnGetLobbyList(LobbyMatchList_t result)
+    {
+        if (LobbiesListManager.instance.listOfLobbies.Count > 0)
         {
             LobbiesListManager.instance.DestroyLobbies();
         }
-    for(int i = 0; i < result.m_nLobbiesMatching; i++)
+        for (int i = 0; i < result.m_nLobbiesMatching; i++)
         {
             CSteamID lobbyID = SteamMatchmaking.GetLobbyByIndex(i);
             LobbyIDs.Add(lobbyID);
@@ -100,10 +101,11 @@ public class SteamLobby : MonoBehaviour
         }
 
     }
-     void OnGetLobbyData( LobbyDataUpdate_t result) { 
+    void OnGetLobbyData(LobbyDataUpdate_t result)
+    {
 
-    LobbiesListManager.instance.DisplayLobbies(LobbyIDs, result);
+        LobbiesListManager.instance.DisplayLobbies(LobbyIDs, result);
 
     }
-    
+
 }

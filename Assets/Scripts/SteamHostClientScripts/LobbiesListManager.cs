@@ -4,7 +4,8 @@ using UnityEngine;
 using Steamworks;
 
 public class LobbiesListManager : MonoBehaviour
-{   public static LobbiesListManager instance;
+{
+    public static LobbiesListManager instance;
 
     public GameObject lobbiesMenu;
     public GameObject lobbyDataItemPrefab;
@@ -16,7 +17,7 @@ public class LobbiesListManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null) { instance = this; }
+        if (instance == null) { instance = this; }
     }
     public void GetListOfLobbies()
     {
@@ -28,7 +29,7 @@ public class LobbiesListManager : MonoBehaviour
     }
     public void DisplayLobbies(List<CSteamID> lobbyIDs, LobbyDataUpdate_t result)
     {
-        for(int i = 0; i < lobbyIDs.Count; i++)
+        for (int i = 0; i < lobbyIDs.Count; i++)
         {
             if (lobbyIDs[i].m_SteamID == result.m_ulSteamIDLobby)
             {
@@ -50,7 +51,7 @@ public class LobbiesListManager : MonoBehaviour
     }
     public void DestroyLobbies()
     {
-        foreach(GameObject lobbyItem in listOfLobbies)
+        foreach (GameObject lobbyItem in listOfLobbies)
         {
             Destroy(lobbyItem);
         }
