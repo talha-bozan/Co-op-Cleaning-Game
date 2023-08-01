@@ -49179,6 +49179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ca798fd6a891e54a842f29d8250e10d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _characterCollection: {fileID: -1342427928219605580}
 --- !u!1 &7403254961704849579
 GameObject:
   m_ObjectHideFlags: 0
@@ -49425,6 +49429,7 @@ GameObject:
   - component: {fileID: 4838972130794208640}
   - component: {fileID: 8346905177642505530}
   - component: {fileID: -1342427928219605580}
+  - component: {fileID: 3863108706541470957}
   m_Layer: 3
   m_Name: GarbageMan
   m_TagString: Player
@@ -49700,8 +49705,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f36c1e39410290e4e9793fab8c14a8f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _selfTrashBin: {fileID: 7203591470007614626}
   _vacuumCleaner: {fileID: 7933041149389247460}
+--- !u!114 &3863108706541470957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933041147883775766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  clientAuthority: 0
+  animator: {fileID: 4636069945577009190}
 --- !u!1 &7933041148678143079
 GameObject:
   m_ObjectHideFlags: 0

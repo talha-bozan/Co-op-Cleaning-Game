@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Managers;
+using System.Globalization;
+using Mirror;
 
-public class CharacterCollection2 : MonoBehaviour
+public class CharacterCollection2 : NetworkBehaviour
 {
 
     private int _userId;
@@ -28,12 +30,15 @@ public class CharacterCollection2 : MonoBehaviour
 
     private void Start()
     {
-        //_selfTrashBin = GetComponentInChildren<CharacterTrashBin2>();
-        //_vacuumCleaner = GetComponentInChildren<VacuumCleaner>();
-        _canThrow = true;
-        EventManager.Instance.ONCityTrashIsFull += ONCityTrashIsFull;
-        _fillBarBgObject = transform.GetChild(0).GetChild(2).gameObject;
-        _fillBarObject = transform.GetChild(0).GetChild(3).gameObject;
+        if (isOwned)
+        {
+            //_selfTrashBin = GetComponentInChildren<CharacterTrashBin2>();
+            //_vacuumCleaner = GetComponentInChildren<VacuumCleaner>();
+            _canThrow = true;
+            EventManager.Instance.ONCityTrashIsFull += ONCityTrashIsFull;
+            _fillBarBgObject = transform.GetChild(0).GetChild(2).gameObject;
+            _fillBarObject = transform.GetChild(0).GetChild(3).gameObject;
+        }
     }
 
     public void SetUserId(int id)
@@ -43,62 +48,73 @@ public class CharacterCollection2 : MonoBehaviour
 
     private void ONCityTrashIsFull(bool isFull)
     {
-        if (isFull) return;
-        _cityTrashIsFull = false;
+        if (isOwned)
+        {
+            if (isFull) return;
+            _cityTrashIsFull = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<RoomController>(out RoomController room))
+        if (isOwned)
         {
-
-            if (room.RoomId != _userId)
+            if (other.gameObject.TryGetComponent<RoomController>(out RoomController room))
             {
-                _vacuumCleaner.WrongRoom = true;
-                return;
+
+                if (room.RoomId != _userId)
+                {
+                    _vacuumCleaner.WrongRoom = true;
+                    return;
+                }
+                _vacuumCleaner.WrongRoom = false;
+                _hasOpened = !_hasOpened;
+                _vacuumCleaner.ActivatePullEffect(_hasOpened);
             }
-            _vacuumCleaner.WrongRoom = false;
-            _hasOpened = !_hasOpened;
-            _vacuumCleaner.ActivatePullEffect(_hasOpened);
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-
-        if (other.TryGetComponent<CityTrashBin>(out _cityTrashBin))
+        if (isOwned)
         {
-            if (_allTrashThrown || _cityTrashIsFull) return;
-            if (_canThrow)
+            if (other.TryGetComponent<CityTrashBin>(out _cityTrashBin))
             {
-                if (!_cityTrashBin.CheckForSpace())
+                if (_allTrashThrown || _cityTrashIsFull) return;
+                if (_canThrow)
                 {
-                    _cityTrashIsFull = true;
+                    if (!_cityTrashBin.CheckForSpace())
+                    {
+                        _cityTrashIsFull = true;
+                    }
+                    if (_selfTrashBin.GetTrashCount() == 0)
+                    {
+                        _allTrashThrown = true;
+                        return;
+                    }
+                    _nextRelease = Time.time + _trashReleaseFrequency;
+                    _canThrow = false;
+                    _cityTrashBin.SendTrashToTheBin(_selfTrashBin.GetReleasePosition());
+                    _vacuumCleaner.DecreaseCollectedCount();
+                    EventManager.Instance.OnONGarbageDumped(_userId);
                 }
-                if (_selfTrashBin.GetTrashCount() == 0)
-                {
-                    _allTrashThrown = true;
-                    return;
-                }
-                _nextRelease = Time.time + _trashReleaseFrequency;
-                _canThrow = false;
-                _cityTrashBin.SendTrashToTheBin(_selfTrashBin.GetReleasePosition());
-                _vacuumCleaner.DecreaseCollectedCount();
-                EventManager.Instance.OnONGarbageDumped(_userId);
+
+
             }
-
-
         }
     }
 
     private void Update()
     {
-        if (!_allTrashThrown)
+        if (isOwned)
         {
-            if (!_canThrow)
+            if (!_allTrashThrown)
             {
-                if (Time.time < _nextRelease) return;
-                _canThrow = true;
+                if (!_canThrow)
+                {
+                    if (Time.time < _nextRelease) return;
+                    _canThrow = true;
+                }
             }
         }
     }
@@ -106,8 +122,11 @@ public class CharacterCollection2 : MonoBehaviour
 
     public void ActivateFillBars(bool isActive)
     {
-        _fillBarObject.SetActive(isActive);
-        _fillBarBgObject.SetActive(isActive);
+        if (isOwned)
+        {
+            _fillBarObject.SetActive(isActive);
+            _fillBarBgObject.SetActive(isActive);
+        }
     }
 
 }

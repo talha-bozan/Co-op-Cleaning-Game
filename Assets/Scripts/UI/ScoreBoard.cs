@@ -9,7 +9,7 @@ using System;
 public class ScoreBoard : MonoBehaviour
 {
     private int _userId;
-    private int _fullCapacity=144;
+    private int _fullCapacity=120;
     private int _collectedAmount;
 
 
